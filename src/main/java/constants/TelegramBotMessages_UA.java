@@ -1,6 +1,6 @@
 package constants;
 
-public class BotMessages_UA {
+public class TelegramBotMessages_UA {
     public static final String START_MESSAGE =
             "Вітаю, цей бот допоможе:\n" +
                     "<i>&#8226; Простим друком</i>\n" +

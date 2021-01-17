@@ -12,4 +12,6 @@ public class Admin {
     public static final String MAIL_SMTP_PORT = "";
     public static final String MAIL_USER = "";
     public static final String MAIL_PASSWORD = "";
+
+
 }
