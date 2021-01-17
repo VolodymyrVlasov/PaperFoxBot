@@ -4,8 +4,12 @@ public class TelegramBotMessages_UA {
     public static final String START_MESSAGE =
             "Вітаю, цей бот допоможе:\n" +
                     "<i>&#8226; Простим друком</i>\n" +
-                    "<i>&#8226; Розрахунком вартості друкованої продукції</i>\n" +
-                    "<i>&#8226; Стастусом замовлення</i>\n";
+                    "<i>&#8226; Розрахунком вартості друкованої продукції</i>\n";
+
+    public static final String QUICK_PRINT =
+            "Оберіть позмір та колірність:";
+
+
 
     public static final String TEST_HTML = "" +
             "<b>bold</b>, <strong>bold</strong>\n" +
