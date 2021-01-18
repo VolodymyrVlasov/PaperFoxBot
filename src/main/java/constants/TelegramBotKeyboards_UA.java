@@ -1,6 +1,6 @@
 package constants;
 
-import models.users.conditions.BotKeyboardQueryStates;
+import models.users.conditions.UserQueryStates;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
@@ -12,11 +12,11 @@ public class TelegramBotKeyboards_UA {
     public static InlineKeyboardMarkup getKeyboardForStartMessage() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_QUICK_PRINT.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_QUICK_PRINT.toString()));
+                .setText(UserQueryStates.KEY_QUICK_PRINT.getValue())
+                .setCallbackData(UserQueryStates.KEY_QUICK_PRINT.toString()));
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_CALC_PRODUCT.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_CALC_PRODUCT.toString()));
+                .setText(UserQueryStates.KEY_CALC_PRODUCT.getValue())
+                .setCallbackData(UserQueryStates.KEY_CALC_PRODUCT.toString()));
 
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
@@ -24,17 +24,17 @@ public class TelegramBotKeyboards_UA {
     public static InlineKeyboardMarkup getKeyboardForQuickPrint() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_A4_BW.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_A4_BW.toString()));
+                .setText(UserQueryStates.KEY_A4_BW.getValue())
+                .setCallbackData(UserQueryStates.KEY_A4_BW.toString()));
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_A4_CL.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_A4_CL.toString()));
+                .setText(UserQueryStates.KEY_A4_CL.getValue())
+                .setCallbackData(UserQueryStates.KEY_A4_CL.toString()));
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_A3_BW.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_A3_BW.toString()));
+                .setText(UserQueryStates.KEY_A3_BW.getValue())
+                .setCallbackData(UserQueryStates.KEY_A3_BW.toString()));
         buttons.add(new InlineKeyboardButton()
-                .setText(BotKeyboardQueryStates.KEY_A3_CL.getValue())
-                .setCallbackData(BotKeyboardQueryStates.KEY_A3_CL.toString()));
+                .setText(UserQueryStates.KEY_A3_CL.getValue())
+                .setCallbackData(UserQueryStates.KEY_A3_CL.toString()));
 
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
