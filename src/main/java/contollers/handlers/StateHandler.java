@@ -20,6 +20,7 @@ public class StateHandler {
         this.user = user;
         userState = user.getState();
         telegramMessageFactory = new TelegramMessageFactory();
+
         switch (userState) {
             case USER_CONNECTED:
                 System.out.println("case: USER_CONNECTED -> User " + getChatID(update));
@@ -30,24 +31,15 @@ public class StateHandler {
                 } else if (update.hasCallbackQuery()) {
                     if (update.getCallbackQuery().getData().equals(KEY_QUICK_PRINT.toString())) {
                         setReply(UserStates.QUICK_PRINT_DESCRIPTION);
-                        user.setState(UserStates.QUICK_PRINT);
+                        setReply(UserStates.QUICK_PRINT);
                     } else if (update.getCallbackQuery().getData().equals(KEY_CALC_PRODUCT.toString())) {
                         setReply(UserStates.CALC_PRODUCT);
-                    } else if (update.getCallbackQuery().getData().equals(KEY_A4_CL.toString()) ||
-                            update.getCallbackQuery().getData().equals(KEY_A4_BW.toString()) ||
-                            update.getCallbackQuery().getData().equals(KEY_A3_CL.toString()) ||
-                            update.getCallbackQuery().getData().equals(KEY_A3_BW.toString())) {
-                        System.out.println("KEY: " + update.getCallbackQuery().getData());
-                        user.setState(UserStates.SELECTED_SIZE_COLOR);
                     }
                 } else setInvalidStatus();
                 break;
-            case QUICK_PRINT_DESCRIPTION:
-                System.out.println("case: QUICK_PRINT_DESCRIPTION -> User " + getChatID(update));
-                setReply(UserStates.QUICK_PRINT);
             case QUICK_PRINT:
                 System.out.println("case: QUICK_PRINT -> User " + getChatID(update));
-                setReply(UserStates.QUICK_PRINT);
+                setReply(UserStates.SELECTED_SIZE_COLOR);
             case SELECTED_SIZE_COLOR:
                 System.out.println("case: SELECTED_SIZE_COLOR -> User " + getChatID(update));
                 if (update.hasCallbackQuery()) {
@@ -65,7 +57,10 @@ public class StateHandler {
                         System.out.println("--> KEY_A3_CL selected");
                         // todo add info and id to order item
                     }
-                    setReply(UserStates.SELECTED_SIZE_COLOR);
+                } else if (update.hasMessage() && update.getMessage().hasDocument()) {
+                    // todo add hasPhoto validation and alert message
+                    System.out.println("update.hasMessage() && update.getMessage().hasDocument() -> true");
+                    setReply(UserStates.FILE_ADDED);
                 } else setInvalidStatus();
                 break;
             case FILE_ADDED:
@@ -73,7 +68,7 @@ public class StateHandler {
                 if (update.hasMessage() && update.getMessage().hasDocument()) {
                     // todo create class for downloading file
                     // todo attach into current item this file path
-                    setReply(UserStates.ONE_MORE_FILE);
+//                    setReply(UserStates.ONE_MORE_FILE);
                 }
                 break;
             case ONE_MORE_FILE:
@@ -117,17 +112,9 @@ public class StateHandler {
     }
 
     private void setReply(UserStates newState) {
-//        user.setState(newState);
+        user.setState(newState);
         telegramMessageFactory.createReplyMessage(newState, update);
         System.out.println("User " + getChatID(update) + " State -> " + userState);
-        if (userState.equals(UserStates.QUICK_PRINT_DESCRIPTION)) {
-            setReply(UserStates.QUICK_PRINT);
-            user.setState(UserStates.SELECTED_SIZE_COLOR);
-        }
-//        if (userState.equals(UserStates.QUICK_PRINT)){
-//            new StateHandler(UserStates.SELECTED_SIZE_COLOR, update);
-//        }
-
     }
 
     private void setInvalidStatus() {
@@ -145,3 +132,13 @@ public class StateHandler {
         return chatId;
     }
 }
+
+/*
+else if (update.getCallbackQuery().getData().equals(KEY_A4_CL.toString()) ||
+                            update.getCallbackQuery().getData().equals(KEY_A4_BW.toString()) ||
+                            update.getCallbackQuery().getData().equals(KEY_A3_CL.toString()) ||
+                            update.getCallbackQuery().getData().equals(KEY_A3_BW.toString())) {
+                        System.out.println("KEY: " + update.getCallbackQuery().getData());
+                        user.setState(UserStates.SELECTED_SIZE_COLOR);
+                    }
+ */

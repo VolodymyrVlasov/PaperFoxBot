@@ -32,8 +32,11 @@ public class TelegramMessageFactory {
                 break;
             case SELECTED_SIZE_COLOR:
                 message.setText(TelegramBotMessages_UA.UPLOAD_FILE_DESCRIPTION);
+                CustomTelegramBot.getInstance().sendMessage(message);
                 break;
             case FILE_ADDED:
+                message.setText("Файл додано");
+                CustomTelegramBot.getInstance().sendMessage(message);
                 break;
             case ONE_MORE_FILE:
                 break;

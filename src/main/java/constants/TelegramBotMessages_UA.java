@@ -22,7 +22,7 @@ public class TelegramBotMessages_UA {
 
     public static final String UPLOAD_FILE_DESCRIPTION =
             "Додайте файл у форматі:\n" +
-                    "<b>\uD83D\uDC47 PDF, DOCX, JPG або PNG розмір файлу не більше 20 мб</b>";
+                    "<b>PDF, DOCX, JPG або PNG\n\uD83D\uDC47  розмір файлу не більше 20 мб</b>";
 
 
     public static final String TEST_HTML = "" +
