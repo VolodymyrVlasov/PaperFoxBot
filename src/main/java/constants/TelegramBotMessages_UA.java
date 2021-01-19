@@ -2,17 +2,27 @@ package constants;
 
 public class TelegramBotMessages_UA {
     public static final String START_MESSAGE =
-            "Вітаю, цей бот допоможе:\n" +
-                    "<i>&#8226; Простим друком</i>\n" +
-                    "<i>&#8226; Розрахунком вартості друкованої продукції</i>\n";
+            "<b>Вітаю!</b>\n\uD83E\uDD8A<b>PaperFox</b> бот допоможе Вам з:\n" +
+                    "<i>\uD83D\uDDA8 &#8226; Простим друком</i>\n" +
+                    "<i>\uD83E\uDDEE &#8226; Розрахунком вартості продукції</i>\n" +
+                    "<i>\uD83D\uDED2 &#8226; Оформленням замовлення</i>\n" +
+                    "<i>\uD83D\uDE9A &#8226; Оформленням доставки</i>\n" +
+                    "<i>\uD83D\uDCB3 &#8226; Спатою за замовлення</i>\n";
+
 
     public static final String QUICK_PRINT_DESCRIPTION =
-            "Додайте файл у форматі:\n" +
-                    "<b>PDF, DOCX, JPG або PNG не більше 20 мб</b>";
+            "У цьому розділі Ви можете обрати розмір та колірність файлу який треба роздрукувати.\n" +
+                    "<i>\uD83D\uDCCE &#8226; оберіть параметри та додайте необхідку кількість файлів</i>\n" +
+                    "<i>\uD83C\uDF88 &#8226; відправте замовлення та отримайте ідентифікатор</i>\n" +
+                    "<i>\uD83D\uDD0E &#8226; назвіть ідентіфікатор фахівцю</i>\n" +
+                    "<i>\uD83E\uDD1D &#8226; отримайте готові роздруківки</i>\n";
 
     public static final String QUICK_PRINT =
-            "Оберіть позмір та колірність:";
+            "Оберіть розмір та колірність:";
 
+    public static final String UPLOAD_FILE_DESCRIPTION =
+            "Додайте файл у форматі:\n" +
+                    "<b>\uD83D\uDC47 PDF, DOCX, JPG або PNG розмір файлу не більше 20 мб</b>";
 
 
     public static final String TEST_HTML = "" +

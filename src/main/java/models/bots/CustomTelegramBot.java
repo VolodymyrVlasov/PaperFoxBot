@@ -51,7 +51,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         if (!users.containsKey(chatId)) {
             users.put(chatId, new ChatUser(chatId));
         }
-        new StateHandler(users.get(chatId).getState(), update);
+        new StateHandler(users.get(chatId), update);
     }
 
     public synchronized void sendMessage(SendMessage sendMessage) {

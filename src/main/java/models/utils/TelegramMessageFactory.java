@@ -22,6 +22,8 @@ public class TelegramMessageFactory {
                 break;
             case QUICK_PRINT_DESCRIPTION:
                 message.setText(TelegramBotMessages_UA.QUICK_PRINT_DESCRIPTION);
+                CustomTelegramBot.getInstance().sendMessage(message);
+                userState = UserStates.QUICK_PRINT;
                 break;
             case QUICK_PRINT:
                 message.setText(TelegramBotMessages_UA.QUICK_PRINT);
@@ -29,6 +31,7 @@ public class TelegramMessageFactory {
                 CustomTelegramBot.getInstance().sendMessage(message);
                 break;
             case SELECTED_SIZE_COLOR:
+                message.setText(TelegramBotMessages_UA.UPLOAD_FILE_DESCRIPTION);
                 break;
             case FILE_ADDED:
                 break;
