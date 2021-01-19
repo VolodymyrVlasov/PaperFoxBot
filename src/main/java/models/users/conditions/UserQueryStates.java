@@ -6,12 +6,12 @@ public enum UserQueryStates {
     KEY_CALC_PRODUCT("Розрахувати вартість продукції"),
 
     //Quick print message buttons
-    KEY_A4_BW("А4 - ч/б"),
-    KEY_A4_CL("А4 - кол"),
-    KEY_A3_BW("А3 - ч/б"),
-    KEY_A3_CL("А3 - кол"),
-    KEY_ONE_MORE_FILE("Та, додати"),
-    KEY_SEND_QUICK_PRINT_ORDER("Ні, відправити"),
+    KEY_A4_BW("А4 - чорно-білий"),
+    KEY_A4_CL("А4 - кольоровий"),
+    KEY_A3_BW("А3 - чорно-білий"),
+    KEY_A3_CL("А3 - кольоровий"),
+    KEY_ONE_MORE_FILE("Так, додати"),
+    KEY_SEND_QUICK_PRINT_ORDER("Ні, відправити замовлення"),
 
     //Calc product message buttons
     KEY_STICKERS("Наліпки / стікери"),

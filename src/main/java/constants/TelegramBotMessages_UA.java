@@ -6,6 +6,10 @@ public class TelegramBotMessages_UA {
                     "<i>&#8226; Простим друком</i>\n" +
                     "<i>&#8226; Розрахунком вартості друкованої продукції</i>\n";
 
+    public static final String QUICK_PRINT_DESCRIPTION =
+            "Додайте файл у форматі:\n" +
+                    "<b>PDF, DOCX, JPG або PNG не більше 20 мб</b>";
+
     public static final String QUICK_PRINT =
             "Оберіть позмір та колірність:";
 

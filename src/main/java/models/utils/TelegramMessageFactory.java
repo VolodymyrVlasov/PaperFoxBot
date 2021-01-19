@@ -6,14 +6,8 @@ import models.bots.CustomTelegramBot;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TelegramMessageFactory {
-
 
     public void createReplyMessage(UserStates userState, Update update) {
         SendMessage message = new SendMessage();
@@ -26,6 +20,9 @@ public class TelegramMessageFactory {
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForStartMessage());
                 CustomTelegramBot.getInstance().sendMessage(message);
                 break;
+            case QUICK_PRINT_DESCRIPTION:
+                message.setText(TelegramBotMessages_UA.QUICK_PRINT_DESCRIPTION);
+                break;
             case QUICK_PRINT:
                 message.setText(TelegramBotMessages_UA.QUICK_PRINT);
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForQuickPrint());
@@ -34,6 +31,8 @@ public class TelegramMessageFactory {
             case SELECTED_SIZE_COLOR:
                 break;
             case FILE_ADDED:
+                break;
+            case ONE_MORE_FILE:
                 break;
             case SEND_ORDER:
                 break;

@@ -45,12 +45,9 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         long chatId = 0;
         if (update.hasMessage() && update.getMessage() != null) {
             chatId = update.getMessage().getChatId();
-            System.out.println("ChatID from Message: " + chatId + " -> " + update.getMessage().getText());
         } else if (update.hasCallbackQuery() && update.getCallbackQuery() != null) {
             chatId = update.getCallbackQuery().getFrom().getId();
-            System.out.println("ChatID from callbackQuery: " + update.getCallbackQuery().getFrom().getId() + " -> " + update.getCallbackQuery().getData().toString());
         }
-
         if (!users.containsKey(chatId)) {
             users.put(chatId, new ChatUser(chatId));
         }
@@ -106,76 +103,6 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         filePath = json.getString("file_path");
         System.out.println("\n121 filePath = " + filePath);
         return filePath;
-    }
-
-    /**
-     * Метод для настройки сообщения и его отправки.
-     *
-     * @param chatId id чата
-     * @param s      Строка, которую необходимот отправить в качестве сообщения.
-     */
-    public synchronized void sendMsg(String chatId, String s) {
-        SendMessage sendMessage = new SendMessage()
-                .enableMarkdown(true)
-                .setChatId(chatId)
-                .setText(s)
-                .setReplyMarkup(setMessageButton());
-        try {
-            setMainMenuButtons(sendMessage);
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public synchronized void sendStartMsg(String chatId) {
-        SendMessage sendMessage = new SendMessage()
-                .enableMarkdown(true)
-                .enableHtml(true)
-                .setChatId(chatId)
-                .setText(TelegramBotMessages_UA.START_MESSAGE)
-                .setReplyMarkup(setMessageButton());
-
-        try {
-            execute(sendMessage);
-            SendMessage sendMsg = new SendMessage();
-            sendMsg.enableMarkdown(true);
-            sendMsg.setChatId(chatId);
-            sendMsg.setText("");
-            setMainMenuButtons(sendMsg);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private InlineKeyboardMarkup setMessageButton() {
-        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
-        List<InlineKeyboardButton> buttons1 = new ArrayList<>();
-        List<InlineKeyboardButton> buttons2 = new ArrayList<>();
-        List<InlineKeyboardButton> buttons3 = new ArrayList<>();
-        InlineKeyboardButton btn1 = new InlineKeyboardButton();
-        btn1.setText("Простий друк (відправити файли)");
-        btn1.setCallbackData("простий друк");
-        buttons1.add(btn1);
-
-        InlineKeyboardButton btn2 = new InlineKeyboardButton();
-        btn2.setText("Розрахувати вартість продукції");
-        btn2.setCallbackData("розрахунок");
-        buttons2.add(btn2);
-
-        InlineKeyboardButton btn3 = new InlineKeyboardButton();
-        btn3.setText("Дізнатись статус замовлення");
-        btn3.setCallbackData("статус");
-        buttons3.add(btn3);
-
-        buttons.add(buttons1);
-        buttons.add(buttons2);
-        buttons.add(buttons3);
-        InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
-        markupKeyboard.setKeyboard(buttons);
-        return markupKeyboard;
     }
 
     public synchronized void setMainMenuButtons(SendMessage sendMessage) {
