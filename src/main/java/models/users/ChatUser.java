@@ -1,6 +1,7 @@
 package models.users;
 
 import models.users.conditions.UserStates;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.GregorianCalendar;
 
@@ -17,6 +18,13 @@ public class ChatUser {
         this.chatID = chatID;
         this.state = UserStates.USER_CONNECTED;
         this.lastAction = new GregorianCalendar();
+    }
+
+    public void setPassportFields(Update update) {
+        if (update.hasMessage()) {
+            this.firstName = update.getMessage().getChat().getFirstName();
+            this.familyName = update.getMessage().getChat().getLastName();
+        }
     }
 
     public void setFirstName(String firstName) {
@@ -42,6 +50,34 @@ public class ChatUser {
 
     public UserStates getState() {
         return state;
+    }
+
+    public long getChatID() {
+        return chatID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public GregorianCalendar getLastAction() {
+        return lastAction;
+    }
+
+    public void setLastAction(GregorianCalendar lastAction) {
+        this.lastAction = lastAction;
     }
 }
 

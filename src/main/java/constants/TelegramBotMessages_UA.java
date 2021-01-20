@@ -20,9 +20,12 @@ public class TelegramBotMessages_UA {
     public static final String QUICK_PRINT =
             "Оберіть розмір та колірність:";
 
+    public static final String INVALID_CHOICE =
+            "Будь ласка, натисніть на кнопку щоб обрати";
+
     public static final String UPLOAD_FILE_DESCRIPTION =
             "Додайте файл у форматі:\n" +
-                    "<b>PDF, DOCX, JPG або PNG\n\uD83D\uDC47  розмір файлу не більше 20 мб</b>";
+                    "<b>\n\uD83D\uDC47PDF, DOCX, JPG або PNG  розмір файлу не більше 20 мб</b>";
 
 
     public static final String TEST_HTML = "" +
@@ -31,4 +34,10 @@ public class TelegramBotMessages_UA {
             "<a href=\"http://www.example.com/\">inline URL</a>c" +
             "<code>inline fixed-width code</code>\n" +
             "<pre>pre-formatted fixed-width code block</pre>\n";
+    public static final String SECTION_IN_DEVEPMENT =
+            "\uD83D\uDEB7 Розділ ще розробляється";
+    public static final String ADD_FILE =
+            "⚠️ПОМИЛКА!!!\n" +
+                    "Додайте файл PDF, DOCX, JPG або PNG\n" +
+                    "<b>розмір файлу не більше 20 мб</b>";
 }
