@@ -96,6 +96,7 @@ public class StateHandler {
                     if (update.getCallbackQuery().equals(KEY_SEND_QUICK_PRINT_ORDER)) {
                         // todo send order to email
                         // todo if email sended succesfuly? set UserSates.ORDER_COMPETE
+
                         setReply(UserStates.ORDER_COMPLETE);
                     }
                 }
