@@ -25,28 +25,37 @@ public class StateHandler {
             case USER_CONNECTED:
                 if (update.hasMessage() && update.getMessage().hasText()) {
                     if (update.getMessage().getText().equals("/start")) {
-                        setReply(user.getState());
+                        setReplyAndChangeStateTo(user.getState());
                         user.setPassportFields(update);
+                    } else {
+                        setInvalidInputAndGoToState(UserStates.USER_CONNECTED);
                     }
                 } else if (update.hasCallbackQuery()) {
                     if (update.getCallbackQuery().getData().equals(KEY_QUICK_PRINT.toString())) {
-                        setReply(UserStates.QUICK_PRINT_DESCRIPTION);
-                        setReply(UserStates.QUICK_PRINT);
+                        setReplyAndChangeStateTo(UserStates.QUICK_PRINT_DESCRIPTION);
+                        setReplyAndChangeStateTo(UserStates.QUICK_PRINT);
+                        user.setState(UserStates.SELECT_SIZE_COLOR);
+                        // setReply(UserStates.SELECT_SIZE_COLOR);
                     } else if (update.getCallbackQuery().getData().equals(KEY_CALC_PRODUCT.toString())) {
-                        setReply(UserStates.CALC_PRODUCT);
-                        setReply(UserStates.USER_CONNECTED);
+                        setReplyAndChangeStateTo(UserStates.CALC_PRODUCT);
+                        setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
                     }
+                    // todo make method to check invalid input for each user state
                 } else if (!update.hasCallbackQuery() || update.getMessage().hasDocument() || update.getMessage().getText().equals("/start")) {
-                    setInvalidChoice(UserStates.USER_CONNECTED);
+                    setInvalidInputAndGoToState(UserStates.USER_CONNECTED);
                 }
                 break;
 
-            case QUICK_PRINT:
-                setReply(UserStates.SELECT_SIZE_COLOR);
 
-                if (!update.hasCallbackQuery() || !update.getMessage().hasDocument()) {
-                    setInvalidChoice(UserStates.QUICK_PRINT);
+            case QUICK_PRINT:
+                if (!update.hasCallbackQuery() || update.getMessage().hasDocument()) {
+                    setInvalidInputAndGoToState(UserStates.QUICK_PRINT);
+                    // todo make method to check invalid input for each user state
+                } else if (update.getMessage().getText().equals("/start")) {
+                    setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
                 }
+
+
             case SELECT_SIZE_COLOR:
                 if (update.hasCallbackQuery()) {
                     String query = update.getCallbackQuery().getData();
@@ -54,74 +63,111 @@ public class StateHandler {
                         CustomTelegramBot.getInstance().sendMessage(new SendMessage()
                                 .setChatId(user.getChatID())
                                 .setText("your choice is: " + KEY_A4_BW.getValue()));
+                        // todo  -> make new child of PrintingProduct
+                        setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
+                        user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A4_CL.toString())) {
                         CustomTelegramBot.getInstance().sendMessage(new SendMessage()
                                 .setChatId(user.getChatID())
                                 .setText("your choice is: " + KEY_A4_CL.getValue()));
+                        // todo  -> make new child of PrintingProduct
+                        user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_BW.toString())) {
                         CustomTelegramBot.getInstance().sendMessage(new SendMessage()
                                 .setChatId(user.getChatID())
                                 .setText("your choice is: " + KEY_A3_BW.getValue()));
+                        // todo  -> make new child of PrintingProduct
+                        user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_CL.toString())) {
                         CustomTelegramBot.getInstance().sendMessage(new SendMessage()
                                 .setChatId(user.getChatID())
                                 .setText("your choice is: " + KEY_A3_CL.getValue()));
+                        // todo  -> make new child of PrintingProduct
+                        user.setState(UserStates.FILE_ADDED);
                     }
+                    // fixme make method to check invalid input for each user state
                 } else if (update.getMessage().getText().equals("/start")) {
-                    setReply(UserStates.USER_CONNECTED);
-                } else if (update.hasMessage() && update.getMessage().hasDocument()) {
-                    // todo add hasPhoto validation and alert message
-                    setReply(UserStates.FILE_ADDED);
-                } else setInvalidFile(UserStates.SELECT_SIZE_COLOR);
+                    setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
+                } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
                 break;
+
+
             case FILE_ADDED:
+                System.out.println("case FILE_ADDED");
                 if (update.hasMessage() && update.getMessage().hasDocument()) {
+                    System.out.println("file received");
                     // todo create class for downloading file
+                    // -> download file and add file_path to item
                     // todo attach into current item this file path
-                    setReply(UserStates.ONE_MORE_FILE);
+                    setReplyAndChangeStateTo(UserStates.ONE_MORE_FILE);
+                } else if (update.hasMessage() && update.getMessage().hasPhoto()) {
+                    setReplyAndChangeStateTo(UserStates.ONE_MORE_FILE);
+                } else {
+                    setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
                 }
                 break;
+
             case ONE_MORE_FILE:
                 if (update.hasCallbackQuery()) {
                     String query = update.getCallbackQuery().getData();
-                    if (query.equals(KEY_ONE_MORE_FILE)) {
-                        setReply(UserStates.SELECT_SIZE_COLOR);
-                    } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER)) {
-                        setReply(UserStates.SEND_ORDER);
+                    if (query.equals(KEY_ONE_MORE_FILE.toString())) {
+                        CustomTelegramBot.getInstance().sendMessage(new SendMessage()
+                                .setChatId(user.getChatID())
+                                .setText("your choice is: " + KEY_ONE_MORE_FILE.getValue()));
+//                        setReplyAndChangeStateTo(UserStates.QUICK_PRINT_DESCRIPTION);
+                        setReplyAndChangeStateTo(UserStates.QUICK_PRINT);
+                        user.setState(UserStates.SELECT_SIZE_COLOR);
+                    } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER.toString())) {
+                        CustomTelegramBot.getInstance().sendMessage(new SendMessage()
+                                .setChatId(user.getChatID())
+                                .setText("your choice is: " + KEY_SEND_QUICK_PRINT_ORDER.getValue()));
+                        setReplyAndChangeStateTo(UserStates.SEND_ORDER);
                     }
-                } else setInvalidChoice(UserStates.ONE_MORE_FILE);
+                    // todo make method to check invalid input for each user state
+                } else setInvalidInputAndGoToState(UserStates.ONE_MORE_FILE);
                 break;
+
+
             case SEND_ORDER:
                 if (update.hasCallbackQuery()) {
                     if (update.getCallbackQuery().equals(KEY_SEND_QUICK_PRINT_ORDER)) {
                         // todo send order to email
-                        // todo if email sended succesfuly? set UserSates.ORDER_COMPETE
+                        // todo if email sent successful? set UserSates.ORDER_COMPETE
 
-                        setReply(UserStates.ORDER_COMPLETE);
+                        setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
                     }
                 }
+                // todo make method to check invalid input for each user state
                 break;
+
+
             case ORDER_COMPLETE:
                 // todo
                 //  if  UserSates.ORDER_COMPETE?
                 //  setReply with order confirmation and id
                 //  else
                 //  set UserSates.ERROR
-                setReply(UserStates.USER_CONNECTED);
+                setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
                 break;
+
+
             case ERROR:
                 // todo if KEY_TRY_AGAIN
                 //  setReply(UserStates.QUICK_PRINT_DESCRIPTION)
         }
     }
 
-    private void setReply(UserStates newState) {
+    private void setReplyAndChangeStateTo(UserStates newState) {
         user.setState(newState);
         telegramMessageFactory.createReplyMessage(newState, update);
         System.out.println("User: id=" + user.getChatID() + " name=" + user.getFirstName() + " " + user.getFamilyName() + " State -> " + userState);
     }
 
-    private void setInvalidChoice(UserStates newState) {
+    private void setReplyWithoutChangeState() {
+
+    }
+
+    private void setInvalidInputAndGoToState(UserStates newState) {
         telegramMessageFactory.createReplyMessage(UserStates.INVALID_CHOICE, update);
         user.setState(newState);
     }

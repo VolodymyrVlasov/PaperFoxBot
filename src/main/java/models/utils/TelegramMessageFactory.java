@@ -38,8 +38,9 @@ public class TelegramMessageFactory {
                 CustomTelegramBot.getInstance().sendMessage(message);
                 break;
             case ONE_MORE_FILE:
-                message.setText("Додати це файл?");
+                message.setText("Додати ще файл?");
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForOneMoreFile());
+                CustomTelegramBot.getInstance().sendMessage(message);
                 break;
             case INVALID_CHOICE:
                 message.setText(TelegramBotMessages_UA.INVALID_CHOICE);
