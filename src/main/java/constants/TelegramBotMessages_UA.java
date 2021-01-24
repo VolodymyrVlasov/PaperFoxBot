@@ -1,6 +1,8 @@
 package constants;
 
 public class TelegramBotMessages_UA {
+    public static final String RUN_BOT = "/start";
+
     public static final String START_MESSAGE =
             "<b>Вітаю!</b>\n\uD83E\uDD8A<b>PaperFox</b> бот допоможе Вам з:\n" +
                     "<i>\uD83D\uDDA8 &#8226; Простим друком</i>\n" +
@@ -8,7 +10,6 @@ public class TelegramBotMessages_UA {
                     "<i>\uD83D\uDED2 &#8226; Оформленням замовлення</i>\n" +
                     "<i>\uD83D\uDE9A &#8226; Оформленням доставки</i>\n" +
                     "<i>\uD83D\uDCB3 &#8226; Спатою за замовлення</i>\n";
-
 
     public static final String QUICK_PRINT_DESCRIPTION =
             "У цьому розділі Ви можете обрати розмір та колірність файлу який треба роздрукувати.\n" +

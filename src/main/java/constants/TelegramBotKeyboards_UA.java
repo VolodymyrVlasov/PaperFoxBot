@@ -18,7 +18,6 @@ public class TelegramBotKeyboards_UA {
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_CALC_PRODUCT.getValue())
                 .setCallbackData(UserQueryStates.KEY_CALC_PRODUCT.toString()));
-
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
 
@@ -36,7 +35,6 @@ public class TelegramBotKeyboards_UA {
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_A3_CL.getValue())
                 .setCallbackData(UserQueryStates.KEY_A3_CL.toString()));
-
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
 
