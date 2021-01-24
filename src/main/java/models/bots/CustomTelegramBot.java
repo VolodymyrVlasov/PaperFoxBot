@@ -2,6 +2,7 @@ package models.bots;
 
 import constants.Admin;
 import contollers.handlers.StateHandler;
+import models.shop.OrderCart;
 import org.json.JSONObject;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -48,6 +49,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         if (!users.containsKey(chatId)) {
             ChatUser user = new ChatUser(chatId);
             user.setPassportFields(update);
+            user.setOrderCart(new OrderCart(user.getCustomer()));
             users.put(chatId, user);
         }
         new StateHandler(users.get(chatId), update);

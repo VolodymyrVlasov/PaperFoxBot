@@ -1,5 +1,7 @@
 package contollers.handlers;
 
+import models.products.categories.digitalPrints.NormalPrint;
+import models.shop.OrderCart;
 import models.users.ChatUser;
 import models.users.conditions.UserStates;
 import models.utils.TelegramMessageFactory;
@@ -8,18 +10,21 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.File;
 
-import static constants.TelegramBotMessages_UA.RUN_BOT;
+import static constants.TelegramBotMessages_UA.*;
 import static models.users.conditions.UserQueryStates.*;
 
 public class StateHandler {
     private TelegramMessageFactory telegramMessageFactory;
     private Update update;
     private ChatUser user;
+    private OrderCart order;
     private int itemCount = 0;
+
 
     public StateHandler(ChatUser user, Update update) {
         this.update = update;
         this.user = user;
+        order = user.getOrderCart();
         telegramMessageFactory = new TelegramMessageFactory();
 
         // todo
@@ -50,12 +55,19 @@ public class StateHandler {
                     String query = update.getCallbackQuery().getData();
                     if (query.equals(KEY_A4_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
+                        order.setItem(new NormalPrint("A4", false));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A4_CL.toString())) {
+                        setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
+                        order.setItem(new NormalPrint("A4", true));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_BW.toString())) {
+                        setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
+                        order.setItem(new NormalPrint("A3", false));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_CL.toString())) {
+                        setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
+                        order.setItem(new NormalPrint("A3", true));
                         user.setState(UserStates.FILE_ADDED);
                     }
                 } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
@@ -65,6 +77,13 @@ public class StateHandler {
                 if (update.hasMessage() && update.getMessage().hasDocument()) {
                     File file = new FileLoader().attachFile(update);
                     System.out.println("Received: " + file.getName() + " Local storage: " + file.getAbsolutePath());
+                    order.getItem().attachDesign(file);
+
+
+                    System.out.println(order.getCustomer() + " -> " + order.getItem().toString());
+
+
+                    // normalPrint.attachDesign(file);
                     // todo create class for downloading file
                     // -> download file and add file_path to item
                     // todo attach into current item this file path
@@ -89,11 +108,15 @@ public class StateHandler {
             }
             case SEND_ORDER -> {
                 checkForStartCommand();
+                setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
                 if (update.hasCallbackQuery()) {
                     if (update.getCallbackQuery().equals(KEY_SEND_QUICK_PRINT_ORDER)) {
+
+                        System.out.println(order.toString());
                         // todo send order to email
                         // todo if email sent successful? set UserSates.ORDER_COMPETE
                         setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
+                        user.setState(UserStates.ORDER_COMPLETE);
                     }
                 }
             }

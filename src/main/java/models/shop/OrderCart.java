@@ -1,6 +1,7 @@
 package models.shop;
 
 import models.products.PrintingProduct;
+import org.glassfish.jersey.internal.util.Producer;
 
 public class OrderCart {
     private PrintingProduct item;
@@ -9,8 +10,7 @@ public class OrderCart {
     private Customer customer;
     private String orderId;
 
-    public OrderCart(PrintingProduct item, Customer customer){
-        this.item = item;
+    public OrderCart(Customer customer){
         this.customer = customer;
 
     }

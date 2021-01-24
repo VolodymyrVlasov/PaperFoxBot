@@ -1,5 +1,7 @@
 package models.users;
 
+import models.shop.Customer;
+import models.shop.OrderCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -13,6 +15,8 @@ public class ChatUser {
     private String email;
     private UserStates state;
     private GregorianCalendar lastAction;
+    private OrderCart orderCart;
+
 
     public ChatUser(long chatID) {
         this.chatID = chatID;
@@ -25,6 +29,23 @@ public class ChatUser {
             this.firstName = update.getMessage().getChat().getFirstName();
             this.familyName = update.getMessage().getChat().getLastName();
         }
+    }
+
+    public Customer getCustomer() {
+        Customer customer = new Customer();
+        customer.setEmail(email);
+        customer.setFamilyName(familyName);
+        customer.setFirstName(firstName);
+        customer.setPhoneNumber(phoneNumber);
+        return customer;
+    }
+
+    public OrderCart getOrderCart() {
+        return orderCart;
+    }
+
+    public void setOrderCart(OrderCart orderCart) {
+        this.orderCart = orderCart;
     }
 
     public void setFirstName(String firstName) {
