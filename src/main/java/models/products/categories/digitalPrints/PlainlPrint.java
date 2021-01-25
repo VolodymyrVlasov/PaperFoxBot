@@ -1,13 +1,10 @@
 package models.products.categories.digitalPrints;
 
-import constants.PaperSize;
 import models.products.PrintingProduct;
 
 import java.io.File;
 
-import static constants.PaperSize.*;
-
-public class NormalPrint extends PrintingProduct {
+public class PlainlPrint extends PrintingProduct {
     private double width;
     private double height;
     private String name;
@@ -15,7 +12,7 @@ public class NormalPrint extends PrintingProduct {
     private File design;
 
 
-    public NormalPrint(String name, boolean isColor) {
+    public PlainlPrint(String name, boolean isColor) {
         this.name = name;
         this.colorMode = colorMode;
         setSize(name);
@@ -23,11 +20,11 @@ public class NormalPrint extends PrintingProduct {
 
     private void setSize(String name) {
         switch (name) {
-            case A4:
+            case "A4":
                 width = 210;
                 height = 297;
                 break;
-            case A3:
+            case "A3":
                 width = 297;
                 height = 420;
                 break;
@@ -71,4 +68,12 @@ public class NormalPrint extends PrintingProduct {
         this.design = design;
     }
 
+    @Override
+    public String toString() {
+        return "\nPlain print ->" +
+                "\n         name:         " + name +
+                "\n         size:         " + width + "x"+  height + " mm" +
+                "\n         printInColor: " + colorMode +
+                "\n         design:       " + design;
+    }
 }

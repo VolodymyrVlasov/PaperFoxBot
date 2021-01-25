@@ -1,8 +1,8 @@
 package contollers.handlers;
 
-import models.products.categories.digitalPrints.NormalPrint;
+import models.products.categories.digitalPrints.PlainlPrint;
 import models.shop.OrderCart;
-import models.users.ChatUser;
+import models.users.TelegramUser;
 import models.users.conditions.UserStates;
 import models.utils.TelegramMessageFactory;
 import models.utils.services.notifications.FileLoader;
@@ -16,15 +16,16 @@ import static models.users.conditions.UserQueryStates.*;
 public class StateHandler {
     private TelegramMessageFactory telegramMessageFactory;
     private Update update;
-    private ChatUser user;
-    private OrderCart order;
+    private TelegramUser user;
+    private OrderCart orderCart;
     private int itemCount = 0;
 
 
-    public StateHandler(ChatUser user, Update update) {
+    public StateHandler(TelegramUser user, Update update) {
         this.update = update;
         this.user = user;
-        order = user.getOrderCart();
+        orderCart = user.getOrderCart();
+//        System.out.println(orderCart.toString());
         telegramMessageFactory = new TelegramMessageFactory();
         handleUpdateEvent();
     }
@@ -58,20 +59,21 @@ public class StateHandler {
                     String query = update.getCallbackQuery().getData();
                     if (query.equals(KEY_A4_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.addItem(new NormalPrint("A4", false));
-                        System.out.println(order.getCustomer().toString() + " -> " + order.getLastItem().toString());
+                        orderCart.addItem(new PlainlPrint("A4", false));
+//                        System.out.println("-> ORDER CART AT 63 STROKE \n\n" + orderCart.toString());
+//                        System.out.println(orderCart.getCustomer().toString() + " -> " + orderCart.getLastItem().toString());
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A4_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.addItem(new NormalPrint("A4", true));
+                        orderCart.addItem(new PlainlPrint("A4", true));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.addItem(new NormalPrint("A3", false));
+                        orderCart.addItem(new PlainlPrint("A3", false));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.addItem(new NormalPrint("A3", true));
+                        orderCart.addItem(new PlainlPrint("A3", true));
                         user.setState(UserStates.FILE_ADDED);
                     }
                 } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
@@ -81,6 +83,8 @@ public class StateHandler {
                 if (update.hasMessage() && update.getMessage().hasDocument()) {
                     File file = new FileLoader().attachFile(update);
                     System.out.println("Received: " + file.getName() + " Local storage: " + file.getAbsolutePath());
+                    user.getOrderCart().getLastItem().attachDesign(file);
+                    System.out.println("\n-> ORDER CART AT 87 STROKE \n" + orderCart.toString());
                     //order.getLastItem().attachDesign(file);
                     // normalPrint.attachDesign(file);
                     // todo create class for downloading file
@@ -135,7 +139,7 @@ public class StateHandler {
     }
 
     private void sendOrder() {
-        System.out.println(order.getCustomer().toString() + " -> " + order.getLastItem().toString());
+        System.out.println(orderCart.getCustomer().toString() + " -> " + orderCart.getLastItem().toString());
         user.setState(UserStates.ORDER_COMPLETE);
         handleUpdateEvent();
     }

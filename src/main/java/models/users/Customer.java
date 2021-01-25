@@ -1,4 +1,4 @@
-package models.shop;
+package models.users;
 
 public class Customer {
     private long chatID;
@@ -47,12 +47,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "chatID=" + chatID +
-                ", firstName='" + firstName + '\'' +
-                ", familyName='" + familyName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Customer -> " +
+                "name: " + firstName +
+                ", familyName: " + familyName +
+                ", phoneNumber='" + phoneNumber +
+                ", email='" + email;
     }
 }

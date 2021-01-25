@@ -1,13 +1,12 @@
 package models.users;
 
-import models.shop.Customer;
 import models.shop.OrderCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.GregorianCalendar;
 
-public class ChatUser {
+public class TelegramUser extends Customer {
     private final long chatID;
     private String firstName;
     private String familyName;
@@ -18,7 +17,7 @@ public class ChatUser {
     private OrderCart orderCart;
 
 
-    public ChatUser(long chatID) {
+    public TelegramUser(long chatID) {
         this.chatID = chatID;
         this.state = UserStates.USER_CONNECTED;
         this.lastAction = new GregorianCalendar();

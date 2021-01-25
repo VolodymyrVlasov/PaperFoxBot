@@ -1,7 +1,7 @@
 package models.shop;
 
 import models.products.PrintingProduct;
-import org.glassfish.jersey.internal.util.Producer;
+import models.users.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +49,13 @@ public class OrderCart {
 
     @Override
     public String toString() {
-        return "OrderCart{" +
-                "customer=" + customer.toString() +
-                ", items=" + items +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Order Cart\n    " +
+                customer.toString() + "\n   " +
+                " Items in this cart -> " + items.size() + " item\n");
+        for (PrintingProduct e : items) {
+            stringBuilder.append("      " + e.toString()+ "\n");
+        }
+        return stringBuilder.toString();
     }
 }
