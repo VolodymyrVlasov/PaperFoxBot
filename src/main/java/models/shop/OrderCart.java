@@ -3,40 +3,40 @@ package models.shop;
 import models.products.PrintingProduct;
 import org.glassfish.jersey.internal.util.Producer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderCart {
-    private PrintingProduct item;
-    private Double orderPrice;
-    private int itemQuantity;
     private Customer customer;
     private String orderId;
+    private List<PrintingProduct> items;
 
-    public OrderCart(Customer customer){
+    public OrderCart(Customer customer) {
         this.customer = customer;
-
+        items = new ArrayList<>();
     }
 
-    public PrintingProduct getItem() {
-        return item;
+    // get last added item (PrintingProduct) to add or change data
+    public PrintingProduct getLastItem() {
+        return items.get(items.size()-1);
     }
 
-    public void setItem(PrintingProduct item) {
-        this.item = item;
+    // add new item to order cart
+    public void addItem(PrintingProduct newItem) {
+        items.add(newItem);
     }
 
+    // get total price for this order
     public Double getOrderPrice() {
+        double orderPrice = 0;
+        for (PrintingProduct e : items) {
+            orderPrice += e.getPrice();
+        }
         return orderPrice;
     }
 
-    public void setOrderPrice(Double orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public int getItemQuantity() {
-        return itemQuantity;
-    }
-
-    public void setItemQuantity(int itemQuantity) {
-        this.itemQuantity = itemQuantity;
+    public int getItemsQuantity() {
+        return items.size();
     }
 
     public Customer getCustomer() {
@@ -45,5 +45,13 @@ public class OrderCart {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderCart{" +
+                "customer=" + customer.toString() +
+                ", items=" + items +
+                '}';
     }
 }

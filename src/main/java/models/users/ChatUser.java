@@ -28,15 +28,16 @@ public class ChatUser {
         if (update.hasMessage()) {
             this.firstName = update.getMessage().getChat().getFirstName();
             this.familyName = update.getMessage().getChat().getLastName();
+            System.out.println(this.toString());
         }
     }
 
     public Customer getCustomer() {
         Customer customer = new Customer();
-        customer.setEmail(email);
+        if (email != null) customer.setEmail(email);
+        if (phoneNumber != null) customer.setPhoneNumber(phoneNumber);
         customer.setFamilyName(familyName);
         customer.setFirstName(firstName);
-        customer.setPhoneNumber(phoneNumber);
         return customer;
     }
 
@@ -99,6 +100,19 @@ public class ChatUser {
 
     public void setLastAction(GregorianCalendar lastAction) {
         this.lastAction = lastAction;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatUser{\n" +
+                "   chatID=" + chatID + "'\n" +
+                "   firstName='" + firstName + "'\n" +
+                "   familyName='" + familyName + "'\n" +
+                "   phoneNumber='" + phoneNumber + "'\n" +
+                "   email='" + email + "'\n" +
+                "   state=" + state + "'\n" +
+                "   orderCart=" + orderCart + "'\n" +
+                "}";
     }
 }
 

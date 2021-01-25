@@ -50,6 +50,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             ChatUser user = new ChatUser(chatId);
             user.setPassportFields(update);
             user.setOrderCart(new OrderCart(user.getCustomer()));
+            System.out.println(user.getOrderCart().toString());
             users.put(chatId, user);
         }
         new StateHandler(users.get(chatId), update);

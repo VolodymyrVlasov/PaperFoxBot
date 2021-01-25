@@ -45,4 +45,14 @@ public class Customer {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "chatID=" + chatID +
+                ", firstName='" + firstName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

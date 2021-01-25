@@ -26,7 +26,10 @@ public class StateHandler {
         this.user = user;
         order = user.getOrderCart();
         telegramMessageFactory = new TelegramMessageFactory();
+        handleUpdateEvent();
+    }
 
+    private void handleUpdateEvent() {
         // todo
         //  if  UserSates.ORDER_COMPETE?
         //  setReply with order confirmation and id
@@ -55,19 +58,20 @@ public class StateHandler {
                     String query = update.getCallbackQuery().getData();
                     if (query.equals(KEY_A4_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.setItem(new NormalPrint("A4", false));
+                        order.addItem(new NormalPrint("A4", false));
+                        System.out.println(order.getCustomer().toString() + " -> " + order.getLastItem().toString());
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A4_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.setItem(new NormalPrint("A4", true));
+                        order.addItem(new NormalPrint("A4", true));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.setItem(new NormalPrint("A3", false));
+                        order.addItem(new NormalPrint("A3", false));
                         user.setState(UserStates.FILE_ADDED);
                     } else if (query.equals(KEY_A3_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        order.setItem(new NormalPrint("A3", true));
+                        order.addItem(new NormalPrint("A3", true));
                         user.setState(UserStates.FILE_ADDED);
                     }
                 } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
@@ -77,12 +81,7 @@ public class StateHandler {
                 if (update.hasMessage() && update.getMessage().hasDocument()) {
                     File file = new FileLoader().attachFile(update);
                     System.out.println("Received: " + file.getName() + " Local storage: " + file.getAbsolutePath());
-                    order.getItem().attachDesign(file);
-
-
-                    System.out.println(order.getCustomer() + " -> " + order.getItem().toString());
-
-
+                    //order.getLastItem().attachDesign(file);
                     // normalPrint.attachDesign(file);
                     // todo create class for downloading file
                     // -> download file and add file_path to item
@@ -94,6 +93,7 @@ public class StateHandler {
                     setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
                 }
             }
+
             case ONE_MORE_FILE -> {
                 checkForStartCommand();
                 if (update.hasCallbackQuery()) {
@@ -103,25 +103,26 @@ public class StateHandler {
                         user.setState(UserStates.SELECT_SIZE_COLOR);
                     } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER.toString())) {
                         setReplyAndChangeStateTo(UserStates.SEND_ORDER);
+                        sendOrder();
                     }
                 } else setInvalidInputAndGoToState(UserStates.ONE_MORE_FILE);
             }
+
             case SEND_ORDER -> {
                 checkForStartCommand();
                 setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
-                if (update.hasCallbackQuery()) {
-                    if (update.getCallbackQuery().equals(KEY_SEND_QUICK_PRINT_ORDER)) {
-
-                        System.out.println(order.toString());
-                        // todo send order to email
-                        // todo if email sent successful? set UserSates.ORDER_COMPETE
-                        setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
-                        user.setState(UserStates.ORDER_COMPLETE);
-                    }
-                }
+//                if (update.hasCallbackQuery()) {
+//                    if (update.getCallbackQuery().equals(KEY_SEND_QUICK_PRINT_ORDER)) {
+//                        // todo send order to email
+//                        // todo if email sent successful? set UserSates.ORDER_COMPETE
+//                        setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
+//                        user.setState(UserStates.ORDER_COMPLETE);
+//                    }
+//                }
             }
             case ORDER_COMPLETE -> {
                 checkForStartCommand();
+                setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
                 setReplyAndChangeStateTo(UserStates.USER_CONNECTED);
             }
             case ERROR -> checkForStartCommand();
@@ -131,6 +132,12 @@ public class StateHandler {
     private void setReplyAndChangeStateTo(UserStates newState) {
         user.setState(newState);
         telegramMessageFactory.createReplyMessage(newState, update);
+    }
+
+    private void sendOrder() {
+        System.out.println(order.getCustomer().toString() + " -> " + order.getLastItem().toString());
+        user.setState(UserStates.ORDER_COMPLETE);
+        handleUpdateEvent();
     }
 
     private void checkForStartCommand() {
