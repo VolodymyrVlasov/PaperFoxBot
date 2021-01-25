@@ -1,24 +1,17 @@
 package models.bots;
 
 import constants.Admin;
-import constants.TelegramBotMessages_UA;
 import contollers.handlers.StateHandler;
-import org.json.JSONObject;
+import models.shop.OrderCart;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import models.users.ChatUser;
+import models.users.TelegramUser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +21,7 @@ import java.util.Map;
 
 public class CustomTelegramBot extends TelegramLongPollingBot {
     private static CustomTelegramBot instance;
-    private Map<Long, ChatUser> users = new HashMap<>();
+    private final Map<Long, TelegramUser> users = new HashMap<>();
 
     private CustomTelegramBot() {
     }
@@ -49,9 +42,13 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             chatId = update.getCallbackQuery().getFrom().getId();
         }
         if (!users.containsKey(chatId)) {
-            users.put(chatId, new ChatUser(chatId));
+            TelegramUser user = new TelegramUser(chatId);
+            user.setPassportFields(update);
+            user.setOrderCart(new OrderCart(user.getCustomer()));
+//            System.out.println(user.getOrderCart().toString());
+            users.put(chatId, user);
         }
-        new StateHandler(users.get(chatId).getState(), update);
+        new StateHandler(users.get(chatId), update);
     }
 
     public synchronized void sendMessage(SendMessage sendMessage) {
@@ -78,32 +75,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
     }
 
 
-    public static String parseUrl(URL url) {
-        if (url == null) {
-            return "";
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))) {
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                stringBuilder.append(inputLine);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
-    }
 
-    // парсим некоторые данные о погоде
-    public static String getFilePath(String resultJson) {
-        String filePath = "";
-        System.out.println("109: getFilePath(): " + filePath + " resultJson = " + resultJson);
-        JSONObject jsonObject = new JSONObject(resultJson);
-        JSONObject json = new JSONObject(jsonObject.get("result").toString());
-        filePath = json.getString("file_path");
-        System.out.println("\n121 filePath = " + filePath);
-        return filePath;
-    }
 
     public synchronized void setMainMenuButtons(SendMessage sendMessage) {
         // Создаем клавиуатуру
@@ -135,37 +107,5 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
 }
 
 
-//        String message = update.getMessage().getText();
-//        if (update.getMessage().hasDocument()) {
-//            URL link;
-//
-//            try {
-//                link = new URL("https://api.telegram.org/bot" + Admin.TLGM_TOKEN +
-//                        "/getFile?file_id=" + update.getMessage().getDocument().getFileId());
-//                new EmailSenderService().sendEmail(new File("https://api.telegram.org/file/bot" +
-//                        Admin.TLGM_TOKEN + "/" + getFilePath(parseUrl(link))));
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            }
-//
-//            //new EmailSenderService().sendEmail(file);
-//            // https://api.telegram.org/bot<bot_token>/getFile?file_id=the_file_id
-//            //   https://api.telegram.org/bot1570392341:AAEUNtXXA47uPa_K0-WvS6RwWILkjoxlThQ/getFile?file_id=BQACAgIAAxkBAAIBTl_9lemztusuqza93y3kCpKUka7hAAIUCwACw87oS5OrlMnRvjlrHgQ
-//            //https://api.telegram.org/file/bot1570392341:AAEUNtXXA47uPa_K0-WvS6RwWILkjoxlThQ/documents/file_0.jpg
-//        }
-//        switch (message) {
-//            case "На початок":
-//                sendStartMsg(update.getMessage().getChatId().toString());
-//                break;
-//            case "/start":
-//                sendStartMsg(update.getMessage().getChatId().toString());
-//                break;
-//            case "Допомога":
-//                sendMsg(update.getMessage().getChatId().toString(), "/help");
-//                break;
-//            default:
-//                if (message != null) {
-//                    sendMsg(update.getMessage().getChatId().toString(), message);
-//                }
 //        }
 

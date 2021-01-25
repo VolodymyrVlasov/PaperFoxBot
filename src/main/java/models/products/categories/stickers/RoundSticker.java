@@ -1,4 +1,4 @@
-package models.products.stickers;
+package models.products.categories.stickers;
 
 import models.products.PrintingProduct;
 

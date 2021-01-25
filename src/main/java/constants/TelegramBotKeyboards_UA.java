@@ -2,6 +2,7 @@ package constants;
 
 import models.users.conditions.UserQueryStates;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class TelegramBotKeyboards_UA {
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_CALC_PRODUCT.getValue())
                 .setCallbackData(UserQueryStates.KEY_CALC_PRODUCT.toString()));
-
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
 
@@ -35,7 +35,17 @@ public class TelegramBotKeyboards_UA {
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_A3_CL.getValue())
                 .setCallbackData(UserQueryStates.KEY_A3_CL.toString()));
+        return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
+    }
 
+    public static ReplyKeyboard getKeyboardForOneMoreFile() {
+        List<InlineKeyboardButton> buttons = new ArrayList<>();
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_ONE_MORE_FILE.getValue())
+                .setCallbackData(UserQueryStates.KEY_ONE_MORE_FILE.toString()));
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_SEND_QUICK_PRINT_ORDER.getValue())
+                .setCallbackData(UserQueryStates.KEY_SEND_QUICK_PRINT_ORDER.toString()));
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
     }
 
@@ -49,4 +59,6 @@ public class TelegramBotKeyboards_UA {
         }
         return fullKeyboard;
     }
+
+
 }

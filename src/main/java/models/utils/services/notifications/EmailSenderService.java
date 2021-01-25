@@ -3,6 +3,7 @@ package models.utils.services.notifications;
 import constants.Admin;
 import constants.MailMessages_UA;
 
+import java.io.File;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -15,7 +16,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class EmailSenderService {
 
-    public void sendEmail() {
+    public void sendEmail(File file) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", "true");
