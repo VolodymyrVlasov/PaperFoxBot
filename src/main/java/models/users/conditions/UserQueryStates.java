@@ -10,8 +10,9 @@ public enum UserQueryStates {
     KEY_A4_CL("А4 - кольоровий"),
     KEY_A3_BW("А3 - чорно-білий"),
     KEY_A3_CL("А3 - кольоровий"),
-    KEY_ONE_MORE_FILE("Так, додати"),
-    KEY_SEND_QUICK_PRINT_ORDER("Ні, відправити замовлення"),
+    KEY_OTHER_PRODUCT("\uD83D\uDCF0 Обрати іншу категорію"),
+    KEY_SEND_QUICK_PRINT_ORDER("✅ Відправити замовлення"),
+    KEY_CANCEL_ORDER("⏏ Повернутись у головне меню"),
 
     //Calc product message buttons
     KEY_STICKERS("Наліпки / стікери"),

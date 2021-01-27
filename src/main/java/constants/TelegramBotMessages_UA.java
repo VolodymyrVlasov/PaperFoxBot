@@ -25,8 +25,8 @@ public class TelegramBotMessages_UA {
             "Будь ласка, натисніть на кнопку щоб обрати";
 
     public static final String UPLOAD_FILE_DESCRIPTION =
-            "Додайте файл у форматі:\n" +
-                    "<b>\n\uD83D\uDC47PDF, DOCX, JPG або PNG  розмір файлу не більше 20 мб</b>";
+                    "\uD83D\uDCC4 Додайте файли для обраної категорії\n" +
+                    "⚠ <b>Розмір кожного файлу не більше 20 мб</b>";
 
 
     public static final String TEST_HTML = "" +

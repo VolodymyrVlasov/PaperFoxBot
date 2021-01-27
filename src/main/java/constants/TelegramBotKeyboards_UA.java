@@ -3,7 +3,10 @@ package constants;
 import models.users.conditions.UserQueryStates;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +44,40 @@ public class TelegramBotKeyboards_UA {
     public static ReplyKeyboard getKeyboardForOneMoreFile() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         buttons.add(new InlineKeyboardButton()
-                .setText(UserQueryStates.KEY_ONE_MORE_FILE.getValue())
-                .setCallbackData(UserQueryStates.KEY_ONE_MORE_FILE.toString()));
+                .setText(UserQueryStates.KEY_OTHER_PRODUCT.getValue())
+                .setCallbackData(UserQueryStates.KEY_OTHER_PRODUCT.toString()));
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_SEND_QUICK_PRINT_ORDER.getValue())
                 .setCallbackData(UserQueryStates.KEY_SEND_QUICK_PRINT_ORDER.toString()));
         return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
+    }
+
+    public static ReplyKeyboardMarkup getKeyboardForUploadingFilesState() {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add(UserQueryStates.KEY_OTHER_PRODUCT.getValue());
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add(UserQueryStates.KEY_SEND_QUICK_PRINT_ORDER.getValue());
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add(UserQueryStates.KEY_CANCEL_ORDER.getValue());
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        return keyboardMarkup;
+    }
+
+    public static ReplyKeyboardMarkup getKeyboardForNormalState() {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add(UserQueryStates.KEY_CANCEL_ORDER.getValue());
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        return keyboardMarkup;
     }
 
 

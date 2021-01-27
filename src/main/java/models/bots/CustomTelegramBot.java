@@ -1,9 +1,11 @@
 package models.bots;
 
 import constants.Admin;
-import contollers.handlers.StateHandler;
+import contollers.Controller;
 import models.shop.OrderCart;
+import models.users.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -23,13 +25,9 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
     private static CustomTelegramBot instance;
     private final Map<Long, TelegramUser> users = new HashMap<>();
 
-    private CustomTelegramBot() {
-    }
 
     public static CustomTelegramBot getInstance() {
-        if (instance == null) {
-            instance = new CustomTelegramBot();
-        }
+        if (instance == null) instance = new CustomTelegramBot();
         return instance;
     }
 
@@ -45,20 +43,14 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             TelegramUser user = new TelegramUser(chatId);
             user.setPassportFields(update);
             user.setOrderCart(new OrderCart(user.getCustomer()));
-//            System.out.println(user.getOrderCart().toString());
             users.put(chatId, user);
         }
-        new StateHandler(users.get(chatId), update);
+        new Controller(users.get(chatId), update);
     }
 
     public synchronized void sendMessage(SendMessage sendMessage) {
         try {
             execute(sendMessage);
-//            SendMessage sendMsg = new SendMessage();
-//            sendMsg.enableMarkdown(true);
-//            sendMsg.setChatId(sendMessage.getChatId());
-//            sendMsg.setText("");
-//            setMainMenuButtons(sendMsg);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -73,8 +65,6 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return Admin.TLGM_TOKEN;
     }
-
-
 
 
     public synchronized void setMainMenuButtons(SendMessage sendMessage) {
@@ -105,7 +95,4 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         replyKeyboardMarkup.setKeyboard(keyboard);
     }
 }
-
-
-//        }
 

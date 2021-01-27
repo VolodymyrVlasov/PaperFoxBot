@@ -50,11 +50,13 @@ public class OrderCart {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Order Cart\n    " +
+        stringBuilder.append("-> ORDER CART <-\n    " +
                 customer.toString() + "\n   " +
-                " Items in this cart -> " + items.size() + " item\n");
+                " Items in cart -> " + items.size() + " item\n");
+        int i = 1;
         for (PrintingProduct e : items) {
-            stringBuilder.append("      " + e.toString()+ "\n");
+            stringBuilder.append(i + ". " + e.toString()+ "\n");
+            i++;
         }
         return stringBuilder.toString();
     }

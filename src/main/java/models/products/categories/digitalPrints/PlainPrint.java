@@ -3,18 +3,21 @@ package models.products.categories.digitalPrints;
 import models.products.PrintingProduct;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PlainlPrint extends PrintingProduct {
+public class PlainPrint extends PrintingProduct {
     private double width;
     private double height;
     private String name;
     private boolean colorMode;
-    private File design;
+    private List<File> designs;
 
 
-    public PlainlPrint(String name, boolean isColor) {
+    public PlainPrint(String name, boolean isColor) {
         this.name = name;
         this.colorMode = colorMode;
+        designs = new ArrayList<>();
         setSize(name);
     }
 
@@ -58,22 +61,23 @@ public class PlainlPrint extends PrintingProduct {
         this.colorMode = colorMode;
     }
 
-    @Override
-    public File getDesign() {
-        return design;
-    }
 
     @Override
-    public void attachDesign(File design) {
-        this.design = design;
+    public void attachFile(File design) {
+        designs.add(design);
     }
 
     @Override
     public String toString() {
-        return "\nPlain print ->" +
-                "\n         name:         " + name +
-                "\n         size:         " + width + "x"+  height + " mm" +
-                "\n         printInColor: " + colorMode +
-                "\n         design:       " + design;
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (File e : designs) {
+            sb.append("\t\tfile " + i +": " + e.getName() + "\n");
+            i++;
+        }
+        String colorMode = isColorMode() ? "CMYK" : "GRAYSCALE";
+        return "Plain print ->" +
+                "\n\tSIZE: " + name + " (" + width + "x"+  height + " mm)" + "\tCOLOR MODE: " + colorMode +
+                "\n\tFILES TO PRINT:\n" + sb.toString();
     }
 }

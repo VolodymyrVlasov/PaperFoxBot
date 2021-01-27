@@ -48,9 +48,8 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer -> " +
-                "name: " + firstName +
-                ", familyName: " + familyName +
-                ", phoneNumber='" + phoneNumber +
-                ", email='" + email;
+                firstName +" " + familyName +
+                "\ttel: " + phoneNumber +
+                "\te-mail: " + email;
     }
 }

@@ -15,6 +15,7 @@ public class TelegramUser extends Customer {
     private UserStates state;
     private GregorianCalendar lastAction;
     private OrderCart orderCart;
+    private boolean keyboardSend = false;
 
 
     public TelegramUser(long chatID) {
@@ -99,6 +100,14 @@ public class TelegramUser extends Customer {
 
     public void setLastAction(GregorianCalendar lastAction) {
         this.lastAction = lastAction;
+    }
+
+    public boolean isKeyboardSend() {
+        return keyboardSend;
+    }
+
+    public void setKeyboardSend(boolean keyboardSend) {
+        this.keyboardSend = keyboardSend;
     }
 
     @Override

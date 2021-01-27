@@ -2,8 +2,8 @@ package constants;
 
 public class Admin {
     //Telegram auth const
-    public static final String TLGM_TOKEN = "1570392341:AAEUNtXXA47uPa_K0-WvS6RwWILkjoxlThQ";
-    public static final String TLGM_USER_NAME = "PaperFoxTestBot";
+    public static final String TLGM_TOKEN = "1354187314:AAGEGl7tne1mTNx8LLUWOFqH56PUcsP2iRU";
+    public static final String TLGM_USER_NAME = "paperfoxbot";
     //Email auth const
     // public static final String MAIL_RECIPIENT = "print@paperfox.com.ua";
     public static final String MAIL_RECIPIENT = "volodymyr.vlasov@gmail.com";

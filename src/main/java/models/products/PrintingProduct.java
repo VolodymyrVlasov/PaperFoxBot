@@ -1,6 +1,7 @@
 package models.products;
 
 import java.io.File;
+import java.util.List;
 
 public abstract class PrintingProduct {
     private double width;
@@ -10,7 +11,7 @@ public abstract class PrintingProduct {
     private int quantity;
     private boolean colorMode;
     private String name;
-    private File design;
+    private List<File> designs;
 
 
     @Override
@@ -23,7 +24,7 @@ public abstract class PrintingProduct {
                 ", quantity=" + quantity +
                 ", colorMode=" + colorMode +
                 ", name='" + name + '\'' +
-                ", design=" + design +
+//                ", design=" + design +
                 '}';
     }
 
@@ -91,11 +92,11 @@ public abstract class PrintingProduct {
         this.name = name;
     }
 
-    public File getDesign() {
-        return design;
-    }
+//    public File getDesign() {
+//        return design;
+//    }
 
-    public void attachDesign(File design) {
-        this.design = design;
+    public void attachFile(File design) {
+        designs.add(design);
     }
 }
