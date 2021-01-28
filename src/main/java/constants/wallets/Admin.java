@@ -1,4 +1,4 @@
-package constants;
+package constants.wallets;
 
 public class Admin {
     //Telegram auth const
@@ -12,6 +12,9 @@ public class Admin {
     public static final String MAIL_SMTP_PORT = "25";
     public static final String MAIL_USER = "bot@paperfox.com.ua";
     public static final String MAIL_PASSWORD = "vlasov90";
+
+    // File_path to local storage
+    public static final String LOCAL_FILE_PATH = "\\\\P-pc\\work\\09_НАШЕ\\BOT";
 
 
 }

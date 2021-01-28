@@ -1,4 +1,4 @@
-package constants;
+package constants.messages.ua_UA;
 
 public class TelegramBotMessages_UA {
     public static final String RUN_BOT = "/start";

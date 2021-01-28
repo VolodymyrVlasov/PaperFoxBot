@@ -1,4 +1,4 @@
-package constants;
+package constants.materials;
 
 public class MaterialPrices {
 }

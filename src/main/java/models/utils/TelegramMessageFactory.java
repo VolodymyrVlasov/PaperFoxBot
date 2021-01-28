@@ -1,7 +1,7 @@
 package models.utils;
 
-import constants.TelegramBotKeyboards_UA;
-import constants.TelegramBotMessages_UA;
+import constants.messages.ua_UA.TelegramBotKeyboards_UA;
+import constants.messages.ua_UA.TelegramBotMessages_UA;
 import models.bots.CustomTelegramBot;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

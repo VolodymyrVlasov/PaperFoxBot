@@ -1,6 +1,6 @@
 package models.utils.services.notifications;
 
-import constants.Admin;
+import constants.wallets.Admin;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.*;
