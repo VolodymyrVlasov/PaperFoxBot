@@ -1,5 +1,5 @@
 # Project exclude paths
 /target/
 /src/main/java/data/temp/
-/src/main/java/constants/Admin.java
 /srs/test
+/src/main/java/constants/wallets/
