@@ -1,2 +1,5 @@
-package constants.wallets;public class Admin {
+package constants.wallets;
+
+public class Admin {
+
 }
