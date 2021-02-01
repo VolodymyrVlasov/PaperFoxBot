@@ -65,7 +65,7 @@ public class TelegramUser extends Customer {
         this.email = email;
     }
 
-    public void setState(UserStates state) {
+    public void setState(UserStates   state) {
         this.state = state;
         this.lastAction = new GregorianCalendar();
     }

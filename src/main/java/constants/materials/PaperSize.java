@@ -1,4 +1,4 @@
-package constants;
+package constants.materials;
 
 public class PaperSize {
     public static final String A6 = "A6";

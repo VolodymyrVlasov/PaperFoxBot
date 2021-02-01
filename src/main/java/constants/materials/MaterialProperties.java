@@ -1,4 +1,4 @@
-package constants;
+package constants.materials;
 
 public class MaterialProperties {
     public static final int RITRAMA_X = 400;

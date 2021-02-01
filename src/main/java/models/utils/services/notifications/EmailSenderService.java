@@ -1,7 +1,7 @@
 package models.utils.services.notifications;
 
-import constants.Admin;
-import constants.MailMessages_UA;
+import constants.wallets.Admin;
+import constants.messages.ua_UA.MailMessages_UA;
 
 import java.io.File;
 import java.util.Properties;
