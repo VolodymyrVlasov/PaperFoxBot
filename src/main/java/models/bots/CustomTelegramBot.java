@@ -3,6 +3,7 @@ package models.bots;
 import constants.wallets.Admin;
 import contollers.Controller;
 import models.shop.OrderCart;
+import models.users.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -40,9 +41,10 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         if (!users.containsKey(chatId)) {
             TelegramUser user = new TelegramUser(chatId);
             user.setPassportFields(update);
-            user.setOrderCart(new OrderCart(user.getCustomer()));
             users.put(chatId, user);
         }
+        if (users.get(chatId).getOrderCart() == null)
+            users.get(chatId).setOrderCart(new OrderCart(users.get(chatId).getCustomer()));
         new Controller(users.get(chatId), update);
     }
 
@@ -64,33 +66,8 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         return Admin.TLGM_TOKEN;
     }
 
-
-    public synchronized void setMainMenuButtons(SendMessage sendMessage) {
-        // Создаем клавиуатуру
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        sendMessage.setReplyMarkup(replyKeyboardMarkup);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-        // Создаем список строк клавиатуры
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-        // Первая строчка клавиатуры
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-        // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add(new KeyboardButton("На початок"));
-
-        // Вторая строчка клавиатуры
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-        // Добавляем кнопки во вторую строчку клавиатуры
-        keyboardSecondRow.add(new KeyboardButton("Допомога"));
-
-        // Добавляем все строчки клавиатуры в список
-        keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
-        // и устанваливаем этот список нашей клавиатуре
-        replyKeyboardMarkup.setKeyboard(keyboard);
+    public void setUserState(long userId, UserStates state) {
+        users.get(userId).setState(state);
     }
 }
 

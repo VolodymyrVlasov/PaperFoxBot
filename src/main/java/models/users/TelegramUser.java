@@ -45,6 +45,10 @@ public class TelegramUser extends Customer {
         return orderCart;
     }
 
+    public void clearOrderCart() {
+        this.orderCart = null;
+    }
+
     public void setOrderCart(OrderCart orderCart) {
         this.orderCart = orderCart;
     }

@@ -1,12 +1,13 @@
 package contollers.handlers;
 
+import models.bots.CustomTelegramBot;
 import models.products.categories.digitalPrints.PlainPrint;
 import models.shop.OrderCart;
 import models.users.TelegramUser;
 import models.users.conditions.UserQueryStates;
 import models.users.conditions.UserStates;
 import models.utils.TelegramMessageFactory;
-import models.utils.services.notifications.FileLoader;
+import models.utils.services.mailServices.FileLoader;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.File;
@@ -38,7 +39,6 @@ public class QuickPrintHandler {
             case QUICK_PRINT -> {
                 setReplyAndChangeStateTo(UserStates.QUICK_PRINT);
                 user.setState(UserStates.SELECT_SIZE_COLOR);
-//                handleUpdateEvent();
             }
             case SELECT_SIZE_COLOR -> {
                 if (update.hasCallbackQuery()) {
@@ -81,35 +81,13 @@ public class QuickPrintHandler {
                             user.setState(UserStates.SELECT_SIZE_COLOR);
                         } else if (query.equals(KEY_CANCEL_ORDER.getValue())) {
                             user.setState(UserStates.UPLOADING_FILES);
-                            handleUpdateEvent();
+//                            handleUpdateEvent();
                         } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER.getValue())) {
                             setReplyAndChangeStateTo(UserStates.SEND_ORDER);
                             handleUpdateEvent();
                         }
                     }
-//                    else setInvalidInputAndGoToState(UserStates.ONE_MORE_FILE);
                 }
-//                else {
-//                    setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
-//                }
-            }
-            case ONE_MORE_FILE -> {
-//                if (update.hasMessage() && update.getMessage().hasText()) {
-//                    String query = update.getMessage().getText();
-//                    if (query.equals(UserQueryStates.KEY_OTHER_PRODUCT.getValue())) {
-//                        setReplyAndChangeStateTo(UserStates.QUICK_PRINT);
-//                        user.setState(UserStates.SELECT_SIZE_COLOR);
-//                    } else if (query.equals(KEY_MORE_FILES_NEED.getValue())) {
-//                        user.setState(UserStates.UPLOADING_FILES);
-//                        handleUpdateEvent();
-//                    } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER.getValue())) {
-//                        setReplyAndChangeStateTo(UserStates.SEND_ORDER);
-//                        handleUpdateEvent();
-//                    }
-//                } else if (update.hasMessage() && update.getMessage().hasDocument()) {
-//                    user.setState(UserStates.UPLOADING_FILES);
-//                    handleUpdateEvent();
-//                } else setInvalidInputAndGoToState(UserStates.ONE_MORE_FILE);
             }
             case SEND_ORDER -> {
                 sendOrder();
@@ -145,7 +123,10 @@ public class QuickPrintHandler {
         // todo send order to email
         //  if email sent successful? set UserSates.ORDER_COMPETE and call  handleUpdateEvent();
         user.setState(UserStates.ORDER_COMPLETE);
+        if (user.isKeyboardSend()) user.setKeyboardSend(false);
+        user.clearOrderCart();
         handleUpdateEvent();
+        CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
     }
 
     private void setInvalidInputAndGoToState(UserStates newState) {
