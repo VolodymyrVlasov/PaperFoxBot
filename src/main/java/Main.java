@@ -1,10 +1,9 @@
 import models.bots.CustomTelegramBot;
-import models.users.conditions.UserQueryStates;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.util.HashMap;
+
 
 public class Main {
 

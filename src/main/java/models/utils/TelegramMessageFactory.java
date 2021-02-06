@@ -16,63 +16,38 @@ public class TelegramMessageFactory {
         message.enableHtml(true);
         message.setChatId(getChatID(update));
         switch (userState) {
-            case USER_CONNECTED:
+            case USER_CONNECTED -> {
                 message.setText(TelegramBotMessages_UA.START_MESSAGE);
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForStartMessage());
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case QUICK_PRINT_DESCRIPTION:
+            }
+            case QUICK_PRINT_DESCRIPTION -> {
                 message.setText(TelegramBotMessages_UA.QUICK_PRINT_DESCRIPTION);
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForNormalState());
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case QUICK_PRINT:
+            }
+            case QUICK_PRINT -> {
                 message.setText(TelegramBotMessages_UA.QUICK_PRINT);
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForQuickPrint());
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case SELECT_SIZE_COLOR:
-                message.setText(TelegramBotMessages_UA.UPLOAD_FILE_DESCRIPTION);
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case UPLOADING_FILES:
-                message.setText("\uD83D\uDC49 додано файл: + file_name");
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case ONE_MORE_FILE:
-
+            }
+            case SELECT_SIZE_COLOR -> message.setText(TelegramBotMessages_UA.UPLOAD_FILE_DESCRIPTION);
+            case UPLOADING_FILES -> message.setText("\uD83D\uDC49 додано файл: + file_name");
+            case ONE_MORE_FILE -> {
                 message.setText("⚠ Коли завантажаться всі файли ⚠\n" +
                         "\uD83D\uDC47 оберіть дію на клавіатурі \uD83D\uDC47 ");
-//                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForOneMoreFile());
-//                System.out.println(TelegramBotKeyboards_UA.getAllFilesInThisItemButton().getKeyboard().toString());
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForUploadingFilesState());
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case INVALID_CHOICE:
-                message.setText(TelegramBotMessages_UA.INVALID_CHOICE);
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case SEND_ORDER:
-                message.setText("Надсилаю замовлення, зачекайте...");
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case ORDER_COMPLETE:
+            }
+            case INVALID_CHOICE -> message.setText(TelegramBotMessages_UA.INVALID_CHOICE);
+            case SEND_ORDER -> message.setText("Надсилаю замовлення, зачекайте...");
+            case ORDER_COMPLETE -> {
                 message.setText("Замовлення оформлене, ідентифікатор 1234");
                 message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForNormalState());
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case ERROR:
-                message.setText(" \"⚠️ПОМИЛКА!!!\n" +
-                        "Вибачте, щось пішло не так." +
-                        "Будь ласка, спробуйте ще раз");
-                CustomTelegramBot.getInstance().sendMessage(message);
-                break;
-            case CALC_PRODUCT:
-                CustomTelegramBot.getInstance().sendMessage(message.setText(TelegramBotMessages_UA.SECTION_IN_DEVEPMENT));
-                break;
-            case INVALID_FILE:
-                CustomTelegramBot.getInstance().sendMessage(message.setText(TelegramBotMessages_UA.ADD_FILE));
+            }
+            case ERROR -> message.setText(" \"⚠️ПОМИЛКА!!!\n" +
+                    "Вибачте, щось пішло не так." +
+                    "Будь ласка, спробуйте ще раз");
+            case CALC_PRODUCT -> message.setText(TelegramBotMessages_UA.SECTION_IN_DEVEPMENT);
+            case INVALID_FILE -> message.setText(TelegramBotMessages_UA.ADD_FILE);
         }
+        CustomTelegramBot.getInstance().sendMessage(message);
     }
 
     public long getChatID(Update update) {

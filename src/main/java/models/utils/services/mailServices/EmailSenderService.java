@@ -1,4 +1,4 @@
-package models.utils.services.notifications;
+package models.utils.services.mailServices;
 
 import constants.wallets.Admin;
 import constants.messages.ua_UA.MailMessages_UA;

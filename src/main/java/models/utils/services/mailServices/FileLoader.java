@@ -1,18 +1,48 @@
-package models.utils.services.notifications;
+package models.utils.services.mailServices;
 
 import constants.wallets.Admin;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class FileLoader {
     private File localFilePath;
     private URL remoteFilePath;
     private String fileName = "src/main/java/data/temp/";
+
+//    Admin.FILE_ROOT_PATH
+
+
+//        boolean status = false;
+//        for (int i = 0; i < 50; i++) {
+//            int orderNumber = new Random().nextInt(899) + 100;
+//            String dir = Admin.ROOT_PATH +
+//                    GregorianCalendar.getInstance().get(Calendar.YEAR) + "/"
+//                    + getMonth() + "/"
+//                    + (new Random().nextInt(31) + 1) + "/" +
+//                    +orderNumber;
+//
+//            File theDir = new File(dir);
+//            System.out.println(theDir);
+//
+//            if (!theDir.exists()) {
+//                status = theDir.mkdirs();
+////                System.out.println(theDir + "" + new Random().nextInt(500) + ".txt");
+//                if (status) {
+//                    new File(theDir + "/" + new Random().nextInt(500) + ".txt").createNewFile();
+//                }
+//
+//            }
+//        }
+//        System.out.println(status);
+
 
     public File attachFile(Update update) {
         return localFilePath = getLocalFilePath(getRemoteFilePath(update), fileName);
@@ -56,7 +86,28 @@ public class FileLoader {
         }
         return remoteFilePath;
     }
+
+    private static String getMonth() {
+        String result;
+        switch (GregorianCalendar.getInstance().get(Calendar.MONTH)) {
+            case 0 -> result = "Январь";
+            case 1 -> result = "Февраль";
+            case 2 -> result = "Март";
+            case 3 -> result = "Апрель";
+            case 4 -> result = "Май";
+            case 5 -> result = "Июнь";
+            case 6 -> result = "Июль";
+            case 7 -> result = "Август";
+            case 8 -> result = "Сентябрь";
+            case 9 -> result = "Октябрь";
+            case 10 -> result = "Ноябрь";
+            default -> result = "Декабрь";
+        }
+        return result;
+    }
+
 }
+
 
 // https://api.telegram.org/bot<bot_token>/getFile?file_id=the_file_id/
 // https://api.telegram.org/bot1570392341:AAEUNtXXA47uPa_K0-WvS6RwWILkjoxlThQ/getFile?file_id=BQACAgIAAxkBAAIBTl_9lemztusuqza93y3kCpKUka7hAAIUCwACw87oS5OrlMnRvjlrHgQ
