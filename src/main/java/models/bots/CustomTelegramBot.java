@@ -1,21 +1,16 @@
 package models.bots;
 
-import constants.wallets.Admin;
+import constants.config.ConfigData;
 import contollers.Controller;
 import models.shop.OrderCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import models.users.TelegramUser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 //https://github.com/SergioViacheslaev/MyWizardTelegramBot
@@ -58,12 +53,12 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return Admin.TLGM_USER_NAME;
+        return ConfigData.TLGM_USER_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return Admin.TLGM_TOKEN;
+        return ConfigData.TLGM_TOKEN;
     }
 
     public void setUserState(long userId, UserStates state) {

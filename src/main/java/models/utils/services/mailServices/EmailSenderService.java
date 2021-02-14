@@ -1,6 +1,6 @@
 package models.utils.services.mailServices;
 
-import constants.wallets.Admin;
+import constants.config.ConfigData;
 import constants.messages.ua_UA.MailMessages_UA;
 
 import java.io.File;
@@ -20,14 +20,14 @@ public class EmailSenderService {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", Admin.MAIL_SERVER_HOST);
-        properties.put("mail.smtp.port",  Admin.MAIL_SMTP_PORT);
-        properties.put("mail.smtp.ssl.trust", Admin.MAIL_SERVER_HOST);
+        properties.put("mail.smtp.host", ConfigData.MAIL_SERVER_HOST);
+        properties.put("mail.smtp.port",  ConfigData.MAIL_SMTP_PORT);
+        properties.put("mail.smtp.ssl.trust", ConfigData.MAIL_SERVER_HOST);
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(Admin.MAIL_USER, Admin.MAIL_PASSWORD);
+                return new PasswordAuthentication(ConfigData.MAIL_USER, ConfigData.MAIL_PASSWORD);
             }
         });
 
@@ -36,11 +36,11 @@ public class EmailSenderService {
             Message message = new MimeMessage(session);
 
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(Admin.MAIL_SENDER));
+            message.setFrom(new InternetAddress(ConfigData.MAIL_SENDER));
 
             // Set To: header field of the header.
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(Admin.MAIL_RECIPIENT));
+                    InternetAddress.parse(ConfigData.MAIL_RECIPIENT));
 
             // Set Subject: header field
             message.setSubject(MailMessages_UA.MAIL_SUBJECT_NEW_ORDER);

@@ -1,6 +1,6 @@
 package models.utils.services.mailServices;
 
-import constants.wallets.Admin;
+import constants.config.ConfigData;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -66,7 +66,7 @@ public class FileLoader {
     public URL getRemoteFilePath(Update update) {
         fileName = fileName + update.getMessage().getDocument().getFileName();
         try {
-            URL link = new URL("https://api.telegram.org/bot" + Admin.TLGM_TOKEN + "/getFile?file_id=" +
+            URL link = new URL("https://api.telegram.org/bot" + ConfigData.TLGM_TOKEN + "/getFile?file_id=" +
                     update.getMessage().getDocument().getFileId());
             StringBuilder stringBuilder = new StringBuilder();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(link.openStream()))) {
@@ -80,7 +80,7 @@ public class FileLoader {
             JSONObject jsonObject = new JSONObject(stringBuilder.toString());
             JSONObject json = new JSONObject(jsonObject.get("result").toString());
             remoteFilePath = new URL(
-                    "https://api.telegram.org/file/bot" + Admin.TLGM_TOKEN + "/" + json.getString("file_path"));
+                    "https://api.telegram.org/file/bot" + ConfigData.TLGM_TOKEN + "/" + json.getString("file_path"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
