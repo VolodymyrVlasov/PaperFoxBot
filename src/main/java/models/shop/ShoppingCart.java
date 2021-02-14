@@ -6,12 +6,12 @@ import models.users.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderCart {
+public class ShoppingCart {
     private Customer customer;
     private String orderId;
     private List<PrintingProduct> items;
 
-    public OrderCart(Customer customer) {
+    public ShoppingCart(Customer customer) {
         this.customer = customer;
         items = new ArrayList<>();
     }

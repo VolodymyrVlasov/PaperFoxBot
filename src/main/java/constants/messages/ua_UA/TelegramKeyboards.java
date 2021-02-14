@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelegramBotKeyboards_UA {
+public class TelegramKeyboards {
 
     public static InlineKeyboardMarkup getKeyboardForStartMessage() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();

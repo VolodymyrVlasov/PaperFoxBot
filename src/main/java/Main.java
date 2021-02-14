@@ -1,14 +1,13 @@
 import models.bots.CustomTelegramBot;
+import models.utils.services.mailServices.FileLoader;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-
-
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(System.getenv("TLGM_TOKEN"));
+
 
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
@@ -17,6 +16,5 @@ public class Main {
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
-
     }
 }

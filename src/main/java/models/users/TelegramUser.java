@@ -1,6 +1,6 @@
 package models.users;
 
-import models.shop.OrderCart;
+import models.shop.ShoppingCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -14,7 +14,7 @@ public class TelegramUser extends Customer {
     private String email;
     private UserStates state;
     private GregorianCalendar lastAction;
-    private OrderCart orderCart;
+    private ShoppingCart shoppingCart;
     private boolean keyboardSend = false;
 
 
@@ -41,16 +41,16 @@ public class TelegramUser extends Customer {
         return customer;
     }
 
-    public OrderCart getOrderCart() {
-        return orderCart;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void clearOrderCart() {
-        this.orderCart = null;
+    public void clearShoppingCart() {
+        this.shoppingCart = null;
     }
 
-    public void setOrderCart(OrderCart orderCart) {
-        this.orderCart = orderCart;
+    public void setShoppingCart(ShoppingCart orderCart) {
+        this.shoppingCart = orderCart;
     }
 
     public void setFirstName(String firstName) {
@@ -123,7 +123,7 @@ public class TelegramUser extends Customer {
                 "   phoneNumber='" + phoneNumber + "'\n" +
                 "   email='" + email + "'\n" +
                 "   state=" + state + "'\n" +
-                "   orderCart=" + orderCart + "'\n" +
+                "   orderCart=" + shoppingCart + "'\n" +
                 "}";
     }
 }

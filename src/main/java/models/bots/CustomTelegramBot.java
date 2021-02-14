@@ -2,7 +2,7 @@ package models.bots;
 
 import constants.config.ConfigData;
 import contollers.Controller;
-import models.shop.OrderCart;
+import models.shop.ShoppingCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -38,8 +38,8 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             user.setPassportFields(update);
             users.put(chatId, user);
         }
-        if (users.get(chatId).getOrderCart() == null)
-            users.get(chatId).setOrderCart(new OrderCart(users.get(chatId).getCustomer()));
+        if (users.get(chatId).getShoppingCart() == null)
+            users.get(chatId).setShoppingCart(new ShoppingCart(users.get(chatId).getCustomer()));
         new Controller(users.get(chatId), update);
     }
 

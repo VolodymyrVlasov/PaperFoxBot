@@ -6,7 +6,7 @@ import models.users.conditions.UserStates;
 import models.utils.TelegramMessageFactory;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static constants.messages.ua_UA.TelegramBotMessages_UA.RUN_BOT;
+import static constants.messages.ua_UA.TelegramMessages.RUN_BOT;
 import static models.users.conditions.UserQueryStates.*;
 
 public class Controller {

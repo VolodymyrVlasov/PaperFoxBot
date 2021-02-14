@@ -1,6 +1,6 @@
 package constants.messages.ua_UA;
 
-public class TelegramBotMessages_UA {
+public class TelegramMessages {
     public static final String RUN_BOT = "/start";
 
     public static final String START_MESSAGE =
@@ -22,7 +22,7 @@ public class TelegramBotMessages_UA {
             "Оберіть розмір та колірність:";
 
     public static final String INVALID_CHOICE =
-            "Будь ласка, натисніть на кнопку щоб обрати";
+            "Будь ласка, оберіть категорію \uD83D\uDC46";
 
     public static final String UPLOAD_FILE_DESCRIPTION =
                     "\uD83D\uDCC4 Додайте файли для обраної категорії\n" +
@@ -38,7 +38,5 @@ public class TelegramBotMessages_UA {
     public static final String SECTION_IN_DEVEPMENT =
             "\uD83D\uDEB7 Розділ ще розробляється";
     public static final String ADD_FILE =
-            "⚠️ПОМИЛКА!!!\n" +
-                    "Додайте файл PDF, DOCX, JPG або PNG\n" +
-                    "<b>розмір файлу не більше 20 мб</b>";
+            "⚠ Додайте фото як файл (без компресії)";
 }

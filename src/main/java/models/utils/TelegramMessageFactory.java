@@ -1,7 +1,7 @@
 package models.utils;
 
-import constants.messages.ua_UA.TelegramBotKeyboards_UA;
-import constants.messages.ua_UA.TelegramBotMessages_UA;
+import constants.messages.ua_UA.TelegramKeyboards;
+import constants.messages.ua_UA.TelegramMessages;
 import models.bots.CustomTelegramBot;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,35 +17,36 @@ public class TelegramMessageFactory {
         message.setChatId(getChatID(update));
         switch (userState) {
             case USER_CONNECTED -> {
-                message.setText(TelegramBotMessages_UA.START_MESSAGE);
-                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForStartMessage());
+                message.setText(TelegramMessages.START_MESSAGE);
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForStartMessage());
             }
             case QUICK_PRINT_DESCRIPTION -> {
-                message.setText(TelegramBotMessages_UA.QUICK_PRINT_DESCRIPTION);
-                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForNormalState());
+                message.setText(TelegramMessages.QUICK_PRINT_DESCRIPTION);
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForNormalState());
             }
             case QUICK_PRINT -> {
-                message.setText(TelegramBotMessages_UA.QUICK_PRINT);
-                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForQuickPrint());
+                message.setText(TelegramMessages.QUICK_PRINT);
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForQuickPrint());
             }
-            case SELECT_SIZE_COLOR -> message.setText(TelegramBotMessages_UA.UPLOAD_FILE_DESCRIPTION);
+            case SELECT_SIZE_COLOR -> message.setText(TelegramMessages.UPLOAD_FILE_DESCRIPTION);
             case UPLOADING_FILES -> message.setText("\uD83D\uDC49 додано файл: + file_name");
             case ONE_MORE_FILE -> {
                 message.setText("⚠ Коли завантажаться всі файли ⚠\n" +
                         "\uD83D\uDC47 оберіть дію на клавіатурі \uD83D\uDC47 ");
-                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForUploadingFilesState());
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForUploadingFilesState());
             }
-            case INVALID_CHOICE -> message.setText(TelegramBotMessages_UA.INVALID_CHOICE);
+            case INVALID_CHOICE -> message.setText(TelegramMessages.INVALID_CHOICE);
+
             case SEND_ORDER -> message.setText("Надсилаю замовлення, зачекайте...");
             case ORDER_COMPLETE -> {
                 message.setText("Замовлення оформлене, ідентифікатор 1234");
-                message.setReplyMarkup(TelegramBotKeyboards_UA.getKeyboardForNormalState());
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForNormalState());
             }
             case ERROR -> message.setText(" \"⚠️ПОМИЛКА!!!\n" +
                     "Вибачте, щось пішло не так." +
                     "Будь ласка, спробуйте ще раз");
-            case CALC_PRODUCT -> message.setText(TelegramBotMessages_UA.SECTION_IN_DEVEPMENT);
-            case INVALID_FILE -> message.setText(TelegramBotMessages_UA.ADD_FILE);
+            case CALC_PRODUCT -> message.setText(TelegramMessages.SECTION_IN_DEVEPMENT);
+            case INVALID_FILE -> message.setText(TelegramMessages.ADD_FILE);
         }
         CustomTelegramBot.getInstance().sendMessage(message);
     }

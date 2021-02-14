@@ -1,7 +1,7 @@
 package models.utils.services.mailServices;
 
 import constants.config.ConfigData;
-import constants.messages.ua_UA.MailMessages_UA;
+import constants.messages.ua_UA.MailMessages;
 
 import java.io.File;
 import java.util.Properties;
@@ -43,7 +43,7 @@ public class EmailSenderService {
                     InternetAddress.parse(ConfigData.MAIL_RECIPIENT));
 
             // Set Subject: header field
-            message.setSubject(MailMessages_UA.MAIL_SUBJECT_NEW_ORDER);
+            message.setSubject(MailMessages.MAIL_SUBJECT_NEW_ORDER);
 
             // Create the message part
             BodyPart messageBodyPart = new MimeBodyPart();

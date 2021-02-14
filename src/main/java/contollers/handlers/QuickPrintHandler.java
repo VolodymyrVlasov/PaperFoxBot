@@ -2,7 +2,7 @@ package contollers.handlers;
 
 import models.bots.CustomTelegramBot;
 import models.products.categories.digitalPrints.PlainPrint;
-import models.shop.OrderCart;
+import models.shop.ShoppingCart;
 import models.users.TelegramUser;
 import models.users.conditions.UserQueryStates;
 import models.users.conditions.UserStates;
@@ -10,21 +10,18 @@ import models.utils.TelegramMessageFactory;
 import models.utils.services.mailServices.FileLoader;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.io.File;
-
 import static models.users.conditions.UserQueryStates.*;
 
 public class QuickPrintHandler {
     private TelegramMessageFactory telegramMessageFactory;
     private Update update;
     private TelegramUser user;
-    private OrderCart orderCart;
-    private int itemCount = 0;
+    private ShoppingCart shoppingCart;
 
     public QuickPrintHandler(TelegramUser user, Update update) {
         this.update = update;
         this.user = user;
-        orderCart = user.getOrderCart();
+        shoppingCart = user.getShoppingCart();
         telegramMessageFactory = new TelegramMessageFactory();
         handleUpdateEvent();
     }
@@ -45,19 +42,19 @@ public class QuickPrintHandler {
                     String query = update.getCallbackQuery().getData();
                     if (query.equals(KEY_A4_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        orderCart.addItem(new PlainPrint("A4", false));
+                        shoppingCart.addItem(new PlainPrint("A4", false));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A4_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        orderCart.addItem(new PlainPrint("A4", true));
+                        shoppingCart.addItem(new PlainPrint("A4", true));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A3_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        orderCart.addItem(new PlainPrint("A3", false));
+                        shoppingCart.addItem(new PlainPrint("A3", false));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A3_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        orderCart.addItem(new PlainPrint("A3", true));
+                        shoppingCart.addItem(new PlainPrint("A3", true));
                         user.setState(UserStates.UPLOADING_FILES);
                     }
                 } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
@@ -65,14 +62,13 @@ public class QuickPrintHandler {
             case UPLOADING_FILES -> {
                 if (update.hasMessage()) {
                     if (update.getMessage().hasDocument()) {
-                        File file = new FileLoader().attachFile(update);
                         // TODO
                         //  1 file format and mimetype validation
                         //  2 handle if attache more than one file
-                        user.getOrderCart().getLastItem().attachFile(file);
+                        user.getShoppingCart().getLastItem().attachFile(new FileLoader().attachFile(update));
                         waitForMultiLoaded();
                     } else if (update.getMessage().hasPhoto()) {
-                        setInvalidInputAndGoToState(UserStates.UPLOADING_FILES);
+                        setReply(UserStates.INVALID_FILE);
                     }
                     if (update.getMessage().hasText()) {
                         String query = update.getMessage().getText();
@@ -81,7 +77,6 @@ public class QuickPrintHandler {
                             user.setState(UserStates.SELECT_SIZE_COLOR);
                         } else if (query.equals(KEY_CANCEL_ORDER.getValue())) {
                             user.setState(UserStates.UPLOADING_FILES);
-//                            handleUpdateEvent();
                         } else if (query.equals(KEY_SEND_QUICK_PRINT_ORDER.getValue())) {
                             setReplyAndChangeStateTo(UserStates.SEND_ORDER);
                             handleUpdateEvent();
@@ -90,7 +85,7 @@ public class QuickPrintHandler {
                 }
             }
             case SEND_ORDER -> {
-                sendOrder();
+                makeOrder();
             }
             case ORDER_COMPLETE -> {
                 setReplyAndChangeStateTo(UserStates.ORDER_COMPLETE);
@@ -108,23 +103,22 @@ public class QuickPrintHandler {
         telegramMessageFactory.createReplyMessage(newState, update);
     }
 
-
     public void waitForMultiLoaded() {
-        new Thread(() -> {
-            if (!user.isKeyboardSend()) {
-                setReply(UserStates.ONE_MORE_FILE);
-                user.setKeyboardSend(true);
-            }
-        }).start();
+        if (!user.isKeyboardSend()) {
+            setReply(UserStates.ONE_MORE_FILE);
+            user.setKeyboardSend(true);
+        }
     }
 
-    private void sendOrder() {
-        System.out.println(orderCart.toString());
-        // todo send order to email
+    private void makeOrder() {
+        System.out.println(shoppingCart.toString());
+        // todo
+        //  add order cart to order
+        //  send order to email
         //  if email sent successful? set UserSates.ORDER_COMPETE and call  handleUpdateEvent();
         user.setState(UserStates.ORDER_COMPLETE);
         if (user.isKeyboardSend()) user.setKeyboardSend(false);
-        user.clearOrderCart();
+        user.clearShoppingCart();
         handleUpdateEvent();
         CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
     }
