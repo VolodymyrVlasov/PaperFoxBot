@@ -2,9 +2,8 @@ package models.utils.services.mailServices;
 
 import constants.config.ConfigData;
 import constants.messages.ua_UA.MailMessages;
+import models.shop.Order;
 
-import java.io.File;
-import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -13,15 +12,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.util.Calendar;
+import java.util.Properties;
 
-public class EmailSenderService {
+public class MailService {
 
-    public void sendEmail(File file) {
+    public MailStates sendEmail(Order order) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", ConfigData.MAIL_SERVER_HOST);
-        properties.put("mail.smtp.port",  ConfigData.MAIL_SMTP_PORT);
+        properties.put("mail.smtp.port", ConfigData.MAIL_SMTP_PORT);
         properties.put("mail.smtp.ssl.trust", ConfigData.MAIL_SERVER_HOST);
 
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -49,7 +50,17 @@ public class EmailSenderService {
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText("This is message body");
+            messageBodyPart.setText("" +
+                    "You have new order:\t" + order.getOrderId() +
+                    "\nFrom:\t" + order.getShoppingCart().getCustomer() +
+                    "\nAt:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
+                    order.getOrderDate().get(Calendar.MONTH) + "\t" +
+                    order.getOrderDate().get(Calendar.HOUR) + ":" +
+                    order.getOrderDate().get(Calendar.MINUTE) +
+                    "\nOrder status:\t" + order.getOrderStatus() +
+                    "\nDelivery method:\t" + order.getDeliveryMethod() +
+                    "\n\n" +
+                    "Order Cart:\n" + order.getShoppingCart().toString());
 
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
@@ -68,35 +79,15 @@ public class EmailSenderService {
 
             // Send the complete message parts
             message.setContent(multipart);
-
             // Send message
             Transport.send(message);
-
             System.out.println("Sent message successfully....");
 
+            return MailStates.OK;
+
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return MailStates.ERROR;
         }
-
-
-//        try {
-//            MimeMessage message = new MimeMessage(session); // email message
-//            message.setFrom(new InternetAddress(Admin.MAIL_SENDER)); // setting header fields
-//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(Admin.MAIL_RECIPIENT));
-//            message.setSubject(MailMessages_UA.MAIL_SUBJECT_NEW_ORDER); // subject line
-//            // actual mail body
-//
-//            message.setText("You can send mail from Java program by using mail API, but you need" +
-//                    "couple of more JAR files e.g. smtp.jar and activation.jar");
-//            // Send message
-//            Transport.send(message);
-//            System.out.println("Email Sent successfully....");
-//        } catch (
-//                MessagingException mex) {
-//            mex.printStackTrace();
-//        }
-
     }
-
-
 }

@@ -2,12 +2,14 @@ package contollers.handlers;
 
 import models.bots.CustomTelegramBot;
 import models.products.categories.digitalPrints.PlainPrint;
+import models.shop.Order;
 import models.shop.ShoppingCart;
 import models.users.TelegramUser;
 import models.users.conditions.UserQueryStates;
 import models.users.conditions.UserStates;
 import models.utils.TelegramMessageFactory;
 import models.utils.services.mailServices.FileLoader;
+import models.utils.services.mailServices.MailStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static models.users.conditions.UserQueryStates.*;
@@ -112,15 +114,16 @@ public class QuickPrintHandler {
 
     private void makeOrder() {
         System.out.println(shoppingCart.toString());
-        // todo
-        //  add order cart to order
-        //  send order to email
-        //  if email sent successful? set UserSates.ORDER_COMPETE and call  handleUpdateEvent();
-        user.setState(UserStates.ORDER_COMPLETE);
-        if (user.isKeyboardSend()) user.setKeyboardSend(false);
-        user.clearShoppingCart();
-        handleUpdateEvent();
-        CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
+        if (new Order(shoppingCart).handleOrder() == MailStates.OK) {
+            user.setState(UserStates.ORDER_COMPLETE);
+            if (user.isKeyboardSend()) user.setKeyboardSend(false);
+            user.clearShoppingCart();
+            handleUpdateEvent();
+            CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
+        } else {
+            setReply(UserStates.ERROR);
+            makeOrder();
+        }
     }
 
     private void setInvalidInputAndGoToState(UserStates newState) {

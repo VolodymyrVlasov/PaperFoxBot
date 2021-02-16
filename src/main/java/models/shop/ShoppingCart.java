@@ -5,6 +5,7 @@ import models.users.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ShoppingCart {
     private Customer customer;
@@ -12,8 +13,13 @@ public class ShoppingCart {
     private List<PrintingProduct> items;
 
     public ShoppingCart(Customer customer) {
+        orderId = "PF-" + new Random(1000)+99;
         this.customer = customer;
         items = new ArrayList<>();
+    }
+
+    public String getOrderId() {
+        return orderId;
     }
 
     // get last added item (PrintingProduct) to add or change data
