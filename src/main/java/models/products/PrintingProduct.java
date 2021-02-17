@@ -11,6 +11,7 @@ public abstract class PrintingProduct {
     private int quantity;
     private boolean colorMode;
     private String name;
+    private String orderPath;
     private List<File> designs;
 
 
@@ -98,5 +99,9 @@ public abstract class PrintingProduct {
 
     public void attachFile(File design) {
         designs.add(design);
+    }
+
+    public String getOrderPath () {
+        return orderPath;
     }
 }

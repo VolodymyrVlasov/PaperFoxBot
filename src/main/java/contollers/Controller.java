@@ -43,7 +43,8 @@ public class Controller {
     private void checkForStartCommand() {
         if (update.hasMessage() && update.getMessage().hasText()) {
             if (update.getMessage().getText().equals(RUN_BOT) || update.getMessage().getText().equals(KEY_CANCEL_ORDER.getValue())) {
-                new TelegramMessageFactory().createReplyMessage(UserStates.USER_CONNECTED, update);
+                user.setState(UserStates.USER_CONNECTED);
+                new TelegramMessageFactory().createReplyMessage(user, update);
             }
         }
     }

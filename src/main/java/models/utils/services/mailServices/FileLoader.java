@@ -13,35 +13,36 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
+import static constants.config.ConfigData.*;
+
 public class FileLoader {
     private File localFilePath;
     private URL remoteFilePath;
     private String fileName = "";
 
-    public File attachFile(Update update) {
-        return getLocalPath(update);
+    public File attachFile(Update update, String orderId) {
+        return getLocalPath(update, orderId);
     }
 
-    public File getLocalPath(Update update) {
-        int orderNumber = new Random().nextInt(899) + 100;
-        String dir = ConfigData.ROOT_PATH +
+    public File getLocalPath(Update update, String orderId) {
+        String dir = ROOT_PATH +
                 GregorianCalendar.getInstance().get(Calendar.YEAR) + "/"
                 + getMonth() + "/"
                 + GregorianCalendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/"
-                + orderNumber;
+                + orderId;
 
         localFilePath = new File(dir);
         if (!localFilePath.exists()) {
             localFilePath.mkdirs();
         }
         downloadFile(getRemoteFilePath(update));
-        return localFilePath;
+        return new File(localFilePath + fileName);
     }
 
     public URL getRemoteFilePath(Update update) {
         fileName = "/" + update.getMessage().getDocument().getFileName();
         try {
-            URL link = new URL("https://api.telegram.org/bot" + ConfigData.TLGM_TOKEN + "/getFile?file_id=" +
+            URL link = new URL("https://api.telegram.org/bot" + TLGM_TOKEN + "/getFile?file_id=" +
                     update.getMessage().getDocument().getFileId());
             StringBuilder stringBuilder = new StringBuilder();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(link.openStream()))) {
@@ -55,7 +56,7 @@ public class FileLoader {
             JSONObject jsonObject = new JSONObject(stringBuilder.toString());
             JSONObject json = new JSONObject(jsonObject.get("result").toString());
             remoteFilePath = new URL(
-                    "https://api.telegram.org/file/bot" + ConfigData.TLGM_TOKEN + "/" + json.getString("file_path"));
+                    "https://api.telegram.org/file/bot" + TLGM_TOKEN + "/" + json.getString("file_path"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

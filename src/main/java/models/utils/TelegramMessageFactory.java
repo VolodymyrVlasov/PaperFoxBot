@@ -3,13 +3,17 @@ package models.utils;
 import constants.messages.ua_UA.TelegramKeyboards;
 import constants.messages.ua_UA.TelegramMessages;
 import models.bots.CustomTelegramBot;
+import models.users.TelegramUser;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
+
 
 public class TelegramMessageFactory {
 
-    public void createReplyMessage(UserStates userState, Update update) {
+    public void createReplyMessage(TelegramUser user, Update update) {
+        UserStates userState = user.getState();
         SendMessage message = new SendMessage();
         message.enableMarkdown(true);
 //        message.enableMarkdownV2(true);
@@ -37,9 +41,11 @@ public class TelegramMessageFactory {
             }
             case INVALID_CHOICE -> message.setText(TelegramMessages.INVALID_CHOICE);
 
-            case SEND_ORDER -> message.setText("Надсилаю замовлення, зачекайте...");
+            case SEND_ORDER -> {
+                message.setText("Оформлюю замовлення, зачекайте...");
+            }
             case ORDER_COMPLETE -> {
-                message.setText("Замовлення оформлене, ідентифікатор 1234");
+                message.setText("Готово, замовлення #" + user.getShoppingCart().getOrderId());
                 message.setReplyMarkup(TelegramKeyboards.getKeyboardForNormalState());
             }
             case ERROR -> message.setText(" \"⚠️ПОМИЛКА!!!\n" +

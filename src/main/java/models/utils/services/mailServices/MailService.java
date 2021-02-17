@@ -13,9 +13,12 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 public class MailService {
+
+    String html = MailMessages.MAIL_HTML_ORDER_TEMPLATE;
 
     public MailStates sendEmail(Order order) {
         Properties properties = new Properties();
@@ -50,32 +53,47 @@ public class MailService {
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText("" +
-                    "You have new order:\t" + order.getOrderId() +
-                    "\nFrom:\t" + order.getShoppingCart().getCustomer() +
-                    "\nAt:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
-                    order.getOrderDate().get(Calendar.MONTH) + "\t" +
-                    order.getOrderDate().get(Calendar.HOUR) + ":" +
-                    order.getOrderDate().get(Calendar.MINUTE) +
-                    "\nOrder status:\t" + order.getOrderStatus() +
-                    "\nDelivery method:\t" + order.getDeliveryMethod() +
-                    "\n\n" +
-                    "Order Cart:\n" + order.getShoppingCart().toString());
 
-            // Create a multipar message
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            String content =
+                    "You have new order:\t" + order.getOrderId() +
+                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
+                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
+                    order.getOrderDate().get(Calendar.MONTH) + "." +
+                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
+                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
+                    order.getOrderDate().get(Calendar.MINUTE) +
+                    "<br>Order status:\t" + order.getOrderStatus() +
+                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
+                    "<br><br>" +
+                    "Order Cart:<br>" + order.getShoppingCart().toString() +
+                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>";
+
+            System.out.println("MailService -> 72 --> " +
+                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() +
+                    "\">OPEN ORDER FOLDER</a>");
+            htmlPart.setContent(content, "text/html; charset=utf-8" );
+
+
+
+
+            // Create a multipart message
             Multipart multipart = new MimeMultipart();
 
             // Set text message part
-            multipart.addBodyPart(messageBodyPart);
+
+            multipart.addBodyPart(htmlPart);
+
+//            multipart.addBodyPart(messageBodyPart);
 
             // Part two is attachment
-            messageBodyPart = new MimeBodyPart();
-            String filename = "C:\\Users\\VovIra\\Desktop\\public class Admin.txt";
-//            String filename = "DATAFILE.txt";
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(filename);
-            multipart.addBodyPart(messageBodyPart);
+//            messageBodyPart = new MimeBodyPart();
+//            String filename = "C:\\Users\\VovIra\\Desktop\\public class Admin.txt";
+////            String filename = "DATAFILE.txt";
+//            DataSource source = new FileDataSource(filename);
+//            messageBodyPart.setDataHandler(new DataHandler(source));
+//            messageBodyPart.setFileName(filename);
+//            multipart.addBodyPart(messageBodyPart);
 
             // Send the complete message parts
             message.setContent(multipart);

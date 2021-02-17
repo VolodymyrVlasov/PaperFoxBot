@@ -13,7 +13,7 @@ public class ShoppingCart {
     private List<PrintingProduct> items;
 
     public ShoppingCart(Customer customer) {
-        orderId = "PF-" + new Random(1000)+99;
+        orderId = "PF-" + String.valueOf(new Random().nextInt(1000) + 99);
         this.customer = customer;
         items = new ArrayList<>();
     }
@@ -24,7 +24,7 @@ public class ShoppingCart {
 
     // get last added item (PrintingProduct) to add or change data
     public PrintingProduct getLastItem() {
-        return items.get(items.size()-1);
+        return items.get(items.size() - 1);
     }
 
     // add new item to order cart
@@ -56,14 +56,16 @@ public class ShoppingCart {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("-> ORDER CART <-\n    " +
-                customer.toString() + "\n   " +
-                " Items in cart -> " + items.size() + " item\n");
+        stringBuilder.append(" Items in cart:\t" + items.size() + " item\n");
         int i = 1;
         for (PrintingProduct e : items) {
-            stringBuilder.append(i + ". " + e.toString()+ "\n");
+            stringBuilder.append(i + ". " + e.toString() + "<br>\n");
             i++;
         }
         return stringBuilder.toString();
+    }
+
+    public String getOrderPath() {
+        return  items.get(items.size() - 1).getOrderPath() ;
     }
 }

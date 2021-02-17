@@ -68,6 +68,13 @@ public class PlainPrint extends PrintingProduct {
     }
 
     @Override
+    public String getOrderPath() {
+                String pathToLastFile = designs.get(designs.size() - 1).getAbsolutePath();
+                String orderPath = pathToLastFile.substring(0, pathToLastFile.lastIndexOf("\\"));
+        return orderPath;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         int i = 1;

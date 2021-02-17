@@ -67,7 +67,7 @@ public class QuickPrintHandler {
                         // TODO
                         //  1 file format and mimetype validation
                         //  2 handle if attache more than one file
-                        user.getShoppingCart().getLastItem().attachFile(new FileLoader().attachFile(update));
+                        user.getShoppingCart().getLastItem().attachFile(new FileLoader().attachFile(update, user.getShoppingCart().getOrderId()));
                         waitForMultiLoaded();
                     } else if (update.getMessage().hasPhoto()) {
                         setReply(UserStates.INVALID_FILE);
@@ -98,11 +98,13 @@ public class QuickPrintHandler {
 
     private void setReplyAndChangeStateTo(UserStates newState) {
         user.setState(newState);
-        telegramMessageFactory.createReplyMessage(newState, update);
+        telegramMessageFactory.createReplyMessage(user, update);
     }
 
     private void setReply(UserStates newState) {
-        telegramMessageFactory.createReplyMessage(newState, update);
+        TelegramUser telegramUser = new TelegramUser(user.getChatID());
+        telegramUser.setState(newState);
+        telegramMessageFactory.createReplyMessage(telegramUser, update);
     }
 
     public void waitForMultiLoaded() {
@@ -117,8 +119,8 @@ public class QuickPrintHandler {
         if (new Order(shoppingCart).handleOrder() == MailStates.OK) {
             user.setState(UserStates.ORDER_COMPLETE);
             if (user.isKeyboardSend()) user.setKeyboardSend(false);
-            user.clearShoppingCart();
             handleUpdateEvent();
+            user.clearShoppingCart();
             CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
         } else {
             setReply(UserStates.ERROR);
@@ -127,7 +129,8 @@ public class QuickPrintHandler {
     }
 
     private void setInvalidInputAndGoToState(UserStates newState) {
-        telegramMessageFactory.createReplyMessage(UserStates.INVALID_CHOICE, update);
         user.setState(newState);
+        telegramMessageFactory.createReplyMessage(user, update);
+
     }
 }
