@@ -1,5 +1,6 @@
 package contollers.handlers;
 
+import javassist.NotFoundException;
 import models.bots.CustomTelegramBot;
 import models.products.categories.digitalPrints.PlainPrint;
 import models.shop.Order;
@@ -7,9 +8,9 @@ import models.shop.ShoppingCart;
 import models.users.TelegramUser;
 import models.users.conditions.UserQueryStates;
 import models.users.conditions.UserStates;
-import models.utils.TelegramMessageFactory;
-import models.utils.services.mailServices.FileLoader;
-import models.utils.services.mailServices.MailStates;
+import contollers.TelegramMessageFactory;
+import services.mailServices.FileLoader;
+import services.mailServices.MailStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static models.users.conditions.UserQueryStates.*;
@@ -20,7 +21,7 @@ public class QuickPrintHandler {
     private TelegramUser user;
     private ShoppingCart shoppingCart;
 
-    public QuickPrintHandler(TelegramUser user, Update update) {
+    public QuickPrintHandler(TelegramUser user, Update update) throws NotFoundException {
         this.update = update;
         this.user = user;
         shoppingCart = user.getShoppingCart();
@@ -44,22 +45,24 @@ public class QuickPrintHandler {
                     String query = update.getCallbackQuery().getData();
                     if (query.equals(KEY_A4_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        shoppingCart.addItem(new PlainPrint("A4", false));
+                        shoppingCart.addItem(new PlainPrint(KEY_A4_BW));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A4_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        shoppingCart.addItem(new PlainPrint("A4", true));
+                        shoppingCart.addItem(new PlainPrint(KEY_A4_CL));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A3_BW.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        shoppingCart.addItem(new PlainPrint("A3", false));
+                        shoppingCart.addItem(new PlainPrint(KEY_A3_BW));
                         user.setState(UserStates.UPLOADING_FILES);
                     } else if (query.equals(KEY_A3_CL.toString())) {
                         setReplyAndChangeStateTo(UserStates.SELECT_SIZE_COLOR);
-                        shoppingCart.addItem(new PlainPrint("A3", true));
+                        shoppingCart.addItem(new PlainPrint(KEY_A3_CL));
                         user.setState(UserStates.UPLOADING_FILES);
                     }
-                } else setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
+                } else {
+                    setInvalidInputAndGoToState(UserStates.SELECT_SIZE_COLOR);
+                }
             }
             case UPLOADING_FILES -> {
                 if (update.hasMessage()) {

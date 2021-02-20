@@ -1,6 +1,5 @@
-package models.utils.services.mailServices;
+package services.mailServices;
 
-import constants.config.ConfigData;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -11,7 +10,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 import static constants.config.ConfigData.*;
 

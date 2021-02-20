@@ -1,4 +1,4 @@
-package models.utils.services.deliveries;
+package services.deliveries;
 
 public enum DeliveryMethod {
     NOVA_POSHTA,

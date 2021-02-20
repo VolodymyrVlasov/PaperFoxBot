@@ -1,19 +1,15 @@
-package models.utils.services.mailServices;
+package services.mailServices;
 
 import constants.config.ConfigData;
 import constants.messages.ua_UA.MailMessages;
 import models.shop.Order;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Properties;
 
 public class MailService {

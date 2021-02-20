@@ -1,25 +1,37 @@
 package models.products;
 
+import javassist.NotFoundException;
+import models.material.Size;
+import models.users.conditions.UserQueryStates;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PrintingProduct {
-    private double width;
-    private double height;
+    public boolean colorMode;
+    public Size size;
+    public List<File> designs;
+    public String name;
+
+
     private double mediaDensity;
     private double price;
     private int quantity;
-    private boolean colorMode;
-    private String name;
     private String orderPath;
-    private List<File> designs;
 
+    public PrintingProduct(UserQueryStates productType) {
+        this.designs = new ArrayList<>();
+        this.name = productType.getValue();
+    }
+
+    public abstract void setProductSize(UserQueryStates materialSizeType);
 
     @Override
     public String toString() {
         return "PrintingProduct{" +
-                "width=" + width +
-                ", height=" + height +
+                "width=" + size.getWidth() +
+                ", height=" + size.getHeight() +
                 ", mediaDensity=" + mediaDensity +
                 ", price=" + price +
                 ", quantity=" + quantity +
@@ -29,79 +41,21 @@ public abstract class PrintingProduct {
                 '}';
     }
 
-    public Integer getQuantityPerSheet(){
-        return 0;
-    }
-
-    public Integer getTotalSheetsQuantity() {
-        return 0;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getMediaDensity() {
-        return mediaDensity;
-    }
-
-    public void setMediaDensity(double mediaDensity) {
-        this.mediaDensity = mediaDensity;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public boolean isColorMode() {
         return colorMode;
     }
 
-    public void setColorMode(boolean colorMode) {
-        this.colorMode = colorMode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-//    public File getDesign() {
-//        return design;
-//    }
-
     public void attachFile(File design) {
         designs.add(design);
     }
 
-    public String getOrderPath () {
+    public String getOrderPath() {
+        String pathToLastFile = designs.get(designs.size() - 1).getAbsolutePath();
+        String orderPath = pathToLastFile.substring(0, pathToLastFile.lastIndexOf("\\"));
         return orderPath;
     }
 }

@@ -1,4 +1,4 @@
-package models.utils.services.payments;
+package services.payments;
 
 /*
 https://github.com/liqpay/sdk-java/

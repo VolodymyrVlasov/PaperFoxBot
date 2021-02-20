@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TelegramKeyboards {
-
     public static InlineKeyboardMarkup getKeyboardForStartMessage() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         buttons.add(new InlineKeyboardButton()
@@ -25,6 +24,7 @@ public class TelegramKeyboards {
     }
 
     public static InlineKeyboardMarkup getKeyboardForQuickPrint() {
+
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         buttons.add(new InlineKeyboardButton()
                 .setText(UserQueryStates.KEY_A4_BW.getValue())
