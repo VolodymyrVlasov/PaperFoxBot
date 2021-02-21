@@ -1,3 +1,4 @@
+import constants.config.ConfigData;
 import models.bots.CustomTelegramBot;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;

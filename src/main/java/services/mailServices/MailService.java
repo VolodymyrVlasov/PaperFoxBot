@@ -64,10 +64,6 @@ public class MailService {
                     "<br><br>" +
                     "Order Cart:<br>" + order.getShoppingCart().toString() +
                     "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>";
-
-            System.out.println("MailService -> 72 --> " +
-                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() +
-                    "\">OPEN ORDER FOLDER</a>");
             htmlPart.setContent(content, "text/html; charset=utf-8" );
 
 
@@ -95,7 +91,7 @@ public class MailService {
             message.setContent(multipart);
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            System.out.println("94(MS) order " + order.getShoppingCart().getOrderId() + " send successfully....");
 
             return MailStates.OK;
 

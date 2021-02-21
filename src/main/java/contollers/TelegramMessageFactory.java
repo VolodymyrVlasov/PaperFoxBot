@@ -51,7 +51,11 @@ public class TelegramMessageFactory {
             case ERROR -> message.setText(" \"⚠️ПОМИЛКА!!!\n" +
                     "Вибачте, щось пішло не так." +
                     "Будь ласка, спробуйте ще раз");
-            case CALC_PRODUCT -> message.setText(TelegramMessages.SECTION_IN_DEVEPMENT);
+            case CHOOSE_PRODUCT-> {
+                message.setText("Оберіть категорію продукту:");
+                message.setReplyMarkup(TelegramKeyboards.getKeyboardForChooseProduct());
+
+            }
             case INVALID_FILE -> message.setText(TelegramMessages.ADD_FILE);
         }
         CustomTelegramBot.getInstance().sendMessage(message);

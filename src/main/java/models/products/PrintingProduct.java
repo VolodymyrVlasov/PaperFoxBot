@@ -1,6 +1,5 @@
 package models.products;
 
-import javassist.NotFoundException;
 import models.material.Size;
 import models.users.conditions.UserQueryStates;
 
@@ -25,7 +24,7 @@ public abstract class PrintingProduct {
         this.name = productType.getValue();
     }
 
-    public abstract void setProductSize(UserQueryStates materialSizeType);
+    public abstract void setProductType(UserQueryStates materialSizeType);
 
     @Override
     public String toString() {
@@ -55,7 +54,7 @@ public abstract class PrintingProduct {
 
     public String getOrderPath() {
         String pathToLastFile = designs.get(designs.size() - 1).getAbsolutePath();
-        String orderPath = pathToLastFile.substring(0, pathToLastFile.lastIndexOf("\\"));
+        orderPath = pathToLastFile.substring(0, pathToLastFile.lastIndexOf("\\"));
         return orderPath;
     }
 }

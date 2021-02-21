@@ -11,7 +11,7 @@ public class RoundSticker extends PrintingProduct {
     }
 
     @Override
-    public void setProductSize(UserQueryStates materialSizeType) {
+    public void setProductType(UserQueryStates materialSizeType) {
         // todo: add realization
     }
 }
