@@ -51,19 +51,21 @@ public class MailService {
             // Now set the actual message
 
             MimeBodyPart htmlPart = new MimeBodyPart();
-            String content =
-                    "You have new order:\t" + order.getOrderId() +
-                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
-                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
-                    order.getOrderDate().get(Calendar.MONTH) + "." +
-                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
-                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
-                    order.getOrderDate().get(Calendar.MINUTE) +
-                    "<br>Order status:\t" + order.getOrderStatus() +
-                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
-                    "<br><br>" +
-                    "Order Cart:<br>" + order.getShoppingCart().toString() +
-                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>";
+            String content = LetterTemplates.MAIL_NEW_ODRER
+
+//                    "You have new order:\t" + order.getOrderId() +
+//                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
+//                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
+//                    order.getOrderDate().get(Calendar.MONTH) + "." +
+//                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
+//                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
+//                    order.getOrderDate().get(Calendar.MINUTE) +
+//                    "<br>Order status:\t" + order.getOrderStatus() +
+//                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
+//                    "<br><br>" +
+//                    "Order Cart:<br>" + order.getShoppingCart().toString() +
+//                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>"
+                    ;
             htmlPart.setContent(content, "text/html; charset=utf-8" );
 
 
