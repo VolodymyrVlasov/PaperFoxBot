@@ -1,4 +1,4 @@
-package models.utils.services.mailServices;
+package services.mailServices;
 
 public enum MailStates {
     OK,

@@ -1,20 +1,14 @@
+import constants.config.ConfigData;
 import models.bots.CustomTelegramBot;
-import models.shop.Order;
-import models.shop.ShoppingCart;
-import models.users.Customer;
-import models.utils.services.mailServices.FileLoader;
-import models.utils.services.mailServices.MailService;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Random;
+import services.mailServices.LetterTemplates;
 
 public class Main {
 
     public static void main(String[] args) {
+//        System.out.println(LetterTemplates.MAIL_NEW_ODRER);
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {

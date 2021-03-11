@@ -14,6 +14,9 @@ public enum UserQueryStates {
     KEY_SEND_QUICK_PRINT_ORDER("✅ Відправити замовлення"),
     KEY_CANCEL_ORDER("⏏ Повернутись у головне меню"),
 
+    SRA4(""),
+    SRA3(""),
+
     //Calc product message buttons
     KEY_STICKERS("Наліпки / стікери"),
     KEY_CARDS("Картки / листівки"),

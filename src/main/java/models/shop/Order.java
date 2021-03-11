@@ -1,8 +1,8 @@
 package models.shop;
 
-import models.utils.services.deliveries.DeliveryMethod;
-import models.utils.services.mailServices.MailService;
-import models.utils.services.mailServices.MailStates;
+import services.deliveries.DeliveryMethod;
+import services.mailServices.MailService;
+import services.mailServices.MailStates;
 
 import java.util.GregorianCalendar;
 

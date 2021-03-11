@@ -1,19 +1,20 @@
 package contollers;
 
-import contollers.handlers.QuickPrintHandler;
+import contollers.managers.ProductChooserMenu;
+import contollers.managers.QuickPrintMenu;
+import javassist.NotFoundException;
 import models.users.TelegramUser;
 import models.users.conditions.UserStates;
-import models.utils.TelegramMessageFactory;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static constants.messages.ua_UA.TelegramMessages.RUN_BOT;
 import static models.users.conditions.UserQueryStates.*;
 
-public class Controller {
+public class MainMenu {
     private Update update;
     private TelegramUser user;
 
-    public Controller(TelegramUser user, Update update) {
+    public MainMenu(TelegramUser user, Update update) {
         this.update = update;
         this.user = user;
         handleUpdateEvent();
@@ -21,23 +22,25 @@ public class Controller {
 
     private void handleUpdateEvent() {
         checkForStartCommand();
-        if (update.hasCallbackQuery()) {
-            if (update.getCallbackQuery().getData().equals(KEY_QUICK_PRINT.toString())) {
-                user.setState(UserStates.QUICK_PRINT_DESCRIPTION);
-                new QuickPrintHandler(user, update);
-            } else if (update.getCallbackQuery().getData().equals(KEY_CALC_PRODUCT.toString())) {
-                // TODO
-                //  1 set user state to CALC_PRODUCT
-                //  2 create handler for calculate printing product
+        try {
+            if (update.hasCallbackQuery()) {
+                if (update.getCallbackQuery().getData().equals(KEY_QUICK_PRINT.toString())) {
+                    user.setState(UserStates.QUICK_PRINT_DESCRIPTION);
+                    new QuickPrintMenu(user, update);
+                } else if (update.getCallbackQuery().getData().equals(KEY_CALC_PRODUCT.toString())) {
+                    user.setState(UserStates.CALC_PRODUCT);
+                    new ProductChooserMenu(user, update);
+                } else {
+                    // redirect to other state handlers
+                    new QuickPrintMenu(user, update);
+                }
             } else {
                 // redirect to other state handlers
-                new QuickPrintHandler(user, update);
+                new QuickPrintMenu(user, update);
             }
-        } else {
-            // redirect to other state handlers
-            new QuickPrintHandler(user, update);
+        } catch (NotFoundException e) {
+            // todo: send telegram message
         }
-
     }
 
     private void checkForStartCommand() {

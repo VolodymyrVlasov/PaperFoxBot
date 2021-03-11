@@ -1,19 +1,15 @@
-package models.utils.services.mailServices;
+package services.mailServices;
 
 import constants.config.ConfigData;
 import constants.messages.ua_UA.MailMessages;
 import models.shop.Order;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Properties;
 
 public class MailService {
@@ -55,23 +51,21 @@ public class MailService {
             // Now set the actual message
 
             MimeBodyPart htmlPart = new MimeBodyPart();
-            String content =
-                    "You have new order:\t" + order.getOrderId() +
-                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
-                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
-                    order.getOrderDate().get(Calendar.MONTH) + "." +
-                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
-                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
-                    order.getOrderDate().get(Calendar.MINUTE) +
-                    "<br>Order status:\t" + order.getOrderStatus() +
-                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
-                    "<br><br>" +
-                    "Order Cart:<br>" + order.getShoppingCart().toString() +
-                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>";
+            String content = LetterTemplates.MAIL_NEW_ODRER
 
-            System.out.println("MailService -> 72 --> " +
-                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() +
-                    "\">OPEN ORDER FOLDER</a>");
+//                    "You have new order:\t" + order.getOrderId() +
+//                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
+//                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
+//                    order.getOrderDate().get(Calendar.MONTH) + "." +
+//                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
+//                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
+//                    order.getOrderDate().get(Calendar.MINUTE) +
+//                    "<br>Order status:\t" + order.getOrderStatus() +
+//                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
+//                    "<br><br>" +
+//                    "Order Cart:<br>" + order.getShoppingCart().toString() +
+//                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>"
+                    ;
             htmlPart.setContent(content, "text/html; charset=utf-8" );
 
 
@@ -99,7 +93,7 @@ public class MailService {
             message.setContent(multipart);
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            System.out.println("94(MS) order " + order.getShoppingCart().getOrderId() + " send successfully....");
 
             return MailStates.OK;
 

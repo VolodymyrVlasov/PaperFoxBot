@@ -56,10 +56,10 @@ public class ShoppingCart {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(" Items in cart:\t" + items.size() + " item\n");
+        stringBuilder.append(" Items in cart:\t" + items.size() + " item<br><br>\n");
         int i = 1;
         for (PrintingProduct e : items) {
-            stringBuilder.append(i + ". " + e.toString() + "<br>\n");
+            stringBuilder.append(i + ". " + e.toString() + "<br><br>\n");
             i++;
         }
         return stringBuilder.toString();

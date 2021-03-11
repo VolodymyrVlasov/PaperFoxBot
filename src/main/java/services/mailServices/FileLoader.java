@@ -1,6 +1,6 @@
-package models.utils.services.mailServices;
+package services.mailServices;
 
-import constants.config.ConfigData;
+import models.shop.ShoppingCart;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -11,7 +11,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 import static constants.config.ConfigData.*;
 
@@ -19,9 +18,11 @@ public class FileLoader {
     private File localFilePath;
     private URL remoteFilePath;
     private String fileName = "";
+    private ShoppingCart shoppingCart;
 
-    public File attachFile(Update update, String orderId) {
-        return getLocalPath(update, orderId);
+    public File attachFile(Update update, ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+        return getLocalPath(update, shoppingCart.getOrderId());
     }
 
     public File getLocalPath(Update update, String orderId) {
@@ -40,7 +41,7 @@ public class FileLoader {
     }
 
     public URL getRemoteFilePath(Update update) {
-        fileName = "/" + update.getMessage().getDocument().getFileName();
+        fileName = "/" + shoppingCart.getLastItem().name + "_" + update.getMessage().getDocument().getFileName();
         try {
             URL link = new URL("https://api.telegram.org/bot" + TLGM_TOKEN + "/getFile?file_id=" +
                     update.getMessage().getDocument().getFileId());
@@ -64,7 +65,6 @@ public class FileLoader {
     }
 
     private void downloadFile(URL url) {
-        System.out.println(localFilePath + fileName);
         try {
             ReadableByteChannel rbc = Channels.newChannel(url.openStream());
             FileOutputStream fos = new FileOutputStream(localFilePath + fileName);
@@ -79,18 +79,18 @@ public class FileLoader {
     private static String getMonth() {
         String result;
         switch (GregorianCalendar.getInstance().get(Calendar.MONTH)) {
-            case 0 -> result = "01_Январь";
-            case 1 -> result = "02_Февраль";
-            case 2 -> result = "03_Март";
-            case 3 -> result = "04_Апрель";
-            case 4 -> result = "05_Май";
-            case 5 -> result = "06_Июнь";
-            case 6 -> result = "07_Июль";
-            case 7 -> result = "08_Август";
-            case 8 -> result = "09_Сентябрь";
-            case 9 -> result = "10_Октябрь";
-            case 10 -> result = "11_Ноябрь";
-            default -> result = "12_Декабрь";
+            case 0 -> result = "01_January";
+            case 1 -> result = "02_February";
+            case 2 -> result = "03_March";
+            case 3 -> result = "04_April";
+            case 4 -> result = "05_May";
+            case 5 -> result = "06_June";
+            case 6 -> result = "07_July";
+            case 7 -> result = "08_August";
+            case 8 -> result = "09_September";
+            case 9 -> result = "10_October";
+            case 10 -> result = "11_November";
+            default -> result = "12_December";
         }
         return result;
     }

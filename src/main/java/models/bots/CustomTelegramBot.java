@@ -1,7 +1,7 @@
 package models.bots;
 
 import constants.config.ConfigData;
-import contollers.Controller;
+import contollers.MainMenu;
 import models.shop.ShoppingCart;
 import models.users.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -40,7 +40,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         }
         if (users.get(chatId).getShoppingCart() == null)
             users.get(chatId).setShoppingCart(new ShoppingCart(users.get(chatId).getCustomer()));
-        new Controller(users.get(chatId), update);
+        new MainMenu(users.get(chatId), update);
     }
 
     public synchronized void sendMessage(SendMessage sendMessage) {
