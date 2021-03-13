@@ -101,6 +101,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.liqpay</groupId>
             <artifactId>liqpay-sdk</artifactId>
             <version>0.7-SNAPSHOT</version>
