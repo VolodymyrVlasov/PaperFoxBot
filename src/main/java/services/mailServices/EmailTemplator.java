@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailTemplator {
-    private static final String emailTmplPath = "test.ftl"; // src/main/java/template
+    private static final String emailTmplPath = "template.ftl"; // src/main/java/template
     private static EmailTemplator instance;
     private Configuration tmplCfg;
 
@@ -31,8 +31,10 @@ public class EmailTemplator {
 
     public String getHTMLMsg(Order order, String title) throws IOException, TemplateException {
         Map<String, Object> tmplData = new HashMap<String, Object>();
-        tmplData.put("order", order);
+        tmplData.put("orderId", order.getOrderId());
         tmplData.put("title", title);
+        tmplData.put("title", title);
+        tmplData.put("orders", new String[]{"order1", "order2"});
 
         Template emailTmp = this.tmplCfg.getTemplate(emailTmplPath);
 

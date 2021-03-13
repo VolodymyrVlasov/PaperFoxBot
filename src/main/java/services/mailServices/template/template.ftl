@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,7 +26,7 @@
             <tr>
                 <td class="half">
                     <p class="text_align_left label">Замовлення</p>
-                    <p class="order_id">№PF-0000</p>
+                    <p class="order_id">${orderId}</p>
                 </td>
                 <td class="half">
                     <p class="text_align_right label">Сума замовлення</p>
@@ -114,6 +114,9 @@
         </table>
 
 
+        <#list orders as order>
+            <div>${order}</div>
+        </#list>
 
         <table class="section row">
             <tr>
