@@ -2,6 +2,9 @@ package services.mailServices;
 
 import constants.config.ConfigData;
 import constants.messages.ua_UA.MailMessages;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import models.shop.Order;
 
 import javax.mail.*;
@@ -9,11 +12,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Properties;
 
 public class MailService {
-
     String html = MailMessages.MAIL_HTML_ORDER_TEMPLATE;
 
     public MailStates sendEmail(Order order) {
@@ -51,7 +54,31 @@ public class MailService {
             // Now set the actual message
 
             MimeBodyPart htmlPart = new MimeBodyPart();
-            String content = LetterTemplates.MAIL_NEW_ODRER
+
+            String content =
+                    "You have new order:\t" + order.getOrderId() +
+                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
+                    "<br>At:\t" + order.getOrderDate().get(Calendar.DAY_OF_MONTH) + "." +
+                    order.getOrderDate().get(Calendar.MONTH) + "." +
+                    order.getOrderDate().get(Calendar.YEAR) + "\t" +
+                    order.getOrderDate().get(Calendar.HOUR_OF_DAY) + ":" +
+                    order.getOrderDate().get(Calendar.MINUTE) +
+                    "<br>Order status:\t" + order.getOrderStatus() +
+                    "<br>Delivery method:\t" + order.getDeliveryMethod() +
+                    "<br><br>" +
+                    "Order Cart:<br>" + order.getShoppingCart().toString() +
+                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>";
+
+            System.out.println("MailService -> 72 --> " +
+                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() +
+                    "\">OPEN ORDER FOLDER</a>");
+
+
+            String msg = EmailTemplator.getInstance().getHTMLMsg(order, "Hello title");
+
+            htmlPart.setContent(msg, "text/html; charset=utf-8" );
+
+            //String content = LetterTemplates.MAIL_NEW_ODRER
 
 //                    "You have new order:\t" + order.getOrderId() +
 //                    "<br>From:\t" + order.getShoppingCart().getCustomer() +
@@ -66,7 +93,8 @@ public class MailService {
 //                    "Order Cart:<br>" + order.getShoppingCart().toString() +
 //                    "<a href=\"myproto://" + order.getShoppingCart().getOrderPath() + "\">OPEN ORDER FOLDER</a>"
                     ;
-            htmlPart.setContent(content, "text/html; charset=utf-8" );
+            //htmlPart.setContent(content, "text/html; charset=utf-8" );
+
 
 
 
@@ -75,6 +103,7 @@ public class MailService {
             Multipart multipart = new MimeMultipart();
 
             // Set text message part
+
 
             multipart.addBodyPart(htmlPart);
 
@@ -91,13 +120,15 @@ public class MailService {
 
             // Send the complete message parts
             message.setContent(multipart);
+
+
             // Send message
             Transport.send(message);
             System.out.println("94(MS) order " + order.getShoppingCart().getOrderId() + " send successfully....");
 
             return MailStates.OK;
 
-        } catch (MessagingException e) {
+        } catch (MessagingException | IOException | TemplateException e) {
             e.printStackTrace();
             return MailStates.ERROR;
         }
