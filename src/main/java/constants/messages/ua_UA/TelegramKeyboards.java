@@ -5,7 +5,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -80,6 +79,23 @@ public class TelegramKeyboards {
         return keyboardMarkup;
     }
 
+    public static InlineKeyboardMarkup getKeyboardForChooseProduct() {
+
+        List<InlineKeyboardButton> buttons = new ArrayList<>();
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_STICKERS.getValue())
+                .setCallbackData(UserQueryStates.KEY_STICKERS.toString()));
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_CARDS.getValue())
+                .setCallbackData(UserQueryStates.KEY_CARDS.toString()));
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_BIZ_CARDS.getValue())
+                .setCallbackData(UserQueryStates.KEY_BIZ_CARDS.toString()));
+        buttons.add(new InlineKeyboardButton()
+                .setText(UserQueryStates.KEY_FLYERS.getValue())
+                .setCallbackData(UserQueryStates.KEY_FLYERS.toString()));
+        return new InlineKeyboardMarkup().setKeyboard(getKeyboard(buttons.size(), buttons));
+    }
 
     private static List<List<InlineKeyboardButton>> getKeyboard(int rows, List<InlineKeyboardButton> buttons) {
         List<List<InlineKeyboardButton>> fullKeyboard = new ArrayList<>();
@@ -90,6 +106,4 @@ public class TelegramKeyboards {
         }
         return fullKeyboard;
     }
-
-
 }

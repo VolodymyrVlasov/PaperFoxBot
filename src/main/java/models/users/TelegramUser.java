@@ -28,7 +28,7 @@ public class TelegramUser extends Customer {
         if (update.hasMessage()) {
             this.firstName = update.getMessage().getChat().getFirstName();
             this.familyName = update.getMessage().getChat().getLastName();
-            System.out.println(this.toString());
+            System.out.println("31(TU) new Telegram User: " + this.firstName + " " + this.familyName);
         }
     }
 

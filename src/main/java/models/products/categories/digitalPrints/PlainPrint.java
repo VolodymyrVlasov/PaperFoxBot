@@ -1,6 +1,5 @@
 package models.products.categories.digitalPrints;
 
-import javassist.NotFoundException;
 import models.material.Size;
 import models.products.PrintingProduct;
 import models.users.conditions.UserQueryStates;
@@ -14,11 +13,23 @@ public class PlainPrint extends PrintingProduct {
     }
 
     @Override
-    public void setProductSize(UserQueryStates materialSizeType) {
+    public void setProductType(UserQueryStates materialSizeType) {
         switch(materialSizeType) {
             case KEY_A4_BW -> {
-                this.size = new Size(10, 25);
+                this.size = new Size(210, 297);
                 this.colorMode = false;
+            }
+            case KEY_A4_CL -> {
+                this.size = new Size(210, 297);
+                this.colorMode = true;
+            }
+            case KEY_A3_BW -> {
+                this.size = new Size(297, 420);
+                this.colorMode = false;
+            }
+            case KEY_A3_CL -> {
+                this.size = new Size(297, 420);
+                this.colorMode = true;
             }
         }
     }
@@ -33,7 +44,7 @@ public class PlainPrint extends PrintingProduct {
         }
         String colorMode = isColorMode() ? "CMYK" : "GRAYSCALE";
         return "Plain print ->" +
-                "\n\tSIZE: " + name + " (" + size.getWidth() + "x"+  size.getHeight() + " mm)" + "\tCOLOR MODE: " + colorMode +
-                "\n\tFILES TO PRINT:\n" + sb.toString();
+                "<br>\n\tSIZE: " + name  +
+                "<br>\n\tFILES TO PRINT:\n<br>" + sb.toString();
     }
 }
