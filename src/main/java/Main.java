@@ -5,19 +5,20 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import services.mailServices.EmailTemplator;
 
+import java.io.IOException;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-        EmailTemplator.getInstance();
 
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
+            EmailTemplator.getInstance();
             telegramBotsApi.registerBot(CustomTelegramBot.getInstance());
-        } catch (TelegramApiRequestException e) {
+        } catch (TelegramApiRequestException | IOException e) {
             e.printStackTrace();
         }
     }
