@@ -60,3 +60,7 @@ customerId
 chatId
 email
 ```
+
+# Credentials
+
+# Data Base URL `jdbc:postgresql://localhost:5432/paperfoxdb`
