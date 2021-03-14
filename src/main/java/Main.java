@@ -12,13 +12,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
+            Class.forName("org.postgresql.Driver");
             EmailTemplator.getInstance();
             telegramBotsApi.registerBot(CustomTelegramBot.getInstance());
-        } catch (TelegramApiRequestException | IOException e) {
+        } catch (TelegramApiRequestException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

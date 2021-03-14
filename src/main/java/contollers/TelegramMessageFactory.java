@@ -3,16 +3,15 @@ package contollers;
 import constants.messages.ua_UA.TelegramKeyboards;
 import constants.messages.ua_UA.TelegramMessages;
 import models.bots.CustomTelegramBot;
-import models.users.TelegramUser;
-import models.users.conditions.UserStates;
+import models.customer.TelegramCustomer;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 
 public class TelegramMessageFactory {
 
-    public void createReplyMessage(TelegramUser user, Update update) {
+    public void createReplyMessage(TelegramCustomer user, Update update) {
         UserStates userState = user.getState();
         SendMessage message = new SendMessage();
         message.enableMarkdown(true);

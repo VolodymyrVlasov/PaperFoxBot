@@ -1,4 +1,4 @@
-package models.users.conditions;
+package models.customer.conditions;
 
 public enum UserQueryStates {
     //Start message buttons

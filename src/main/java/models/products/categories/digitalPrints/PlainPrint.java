@@ -2,7 +2,7 @@ package models.products.categories.digitalPrints;
 
 import models.material.Size;
 import models.products.PrintingProduct;
-import models.users.conditions.UserQueryStates;
+import models.customer.conditions.UserQueryStates;
 
 import java.io.File;
 

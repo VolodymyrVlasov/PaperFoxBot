@@ -1,12 +1,11 @@
 package contollers.managers;
 
 import contollers.TelegramMessageFactory;
-import javassist.NotFoundException;
 import models.bots.CustomTelegramBot;
 import models.shop.Order;
 import models.shop.ShoppingCart;
-import models.users.TelegramUser;
-import models.users.conditions.UserStates;
+import models.customer.TelegramCustomer;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import services.mailServices.MailStates;
 
@@ -14,10 +13,10 @@ public abstract class AbstractMenu {
 
     public TelegramMessageFactory telegramMessageFactory;
     public Update update;
-    public TelegramUser user;
+    public TelegramCustomer user;
     public ShoppingCart shoppingCart;
 
-    public AbstractMenu(TelegramUser user, Update update) {
+    public AbstractMenu(TelegramCustomer user, Update update) {
         this.update = update;
         this.user = user;
         shoppingCart = user.getShoppingCart();
@@ -33,9 +32,9 @@ public abstract class AbstractMenu {
     }
 
     public void setReply(UserStates newState) {
-        TelegramUser telegramUser = new TelegramUser(user.getChatID());
-        telegramUser.setState(newState);
-        telegramMessageFactory.createReplyMessage(telegramUser, update);
+        TelegramCustomer telegramCustomer = new TelegramCustomer(user.getChatID());
+        telegramCustomer.setState(newState);
+        telegramMessageFactory.createReplyMessage(telegramCustomer, update);
     }
 
     public void waitForMultiLoaded() {
@@ -47,7 +46,7 @@ public abstract class AbstractMenu {
 
     public void makeOrder() {
         System.out.println("49(AM) new order " + shoppingCart.getOrderId() + " from " +
-                shoppingCart.getCustomer().getFirstName() + " " + shoppingCart.getCustomer().getFamilyName());
+                shoppingCart.getCustomer().getFirstName() + " " + shoppingCart.getCustomer().getLastName());
         if (new Order(shoppingCart).handleOrder() == MailStates.OK) {
             user.setState(UserStates.ORDER_COMPLETE);
             if (user.isKeyboardSend()) user.setKeyboardSend(false);

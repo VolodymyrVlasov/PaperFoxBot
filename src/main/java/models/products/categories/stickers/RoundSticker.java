@@ -2,7 +2,7 @@ package models.products.categories.stickers;
 
 
 import models.products.PrintingProduct;
-import models.users.conditions.UserQueryStates;
+import models.customer.conditions.UserQueryStates;
 
 public class RoundSticker extends PrintingProduct {
     public RoundSticker(UserQueryStates productType) {

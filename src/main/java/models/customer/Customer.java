@@ -1,17 +1,16 @@
-package models.users;
+package models.customer;
+
+import java.util.GregorianCalendar;
 
 public class Customer {
-    private long chatID;
-    private String firstName;
-    private String familyName;
-    private String phoneNumber;
-    private String email;
+//    private long chatID;
 
-
-
-    public long getChatID() {
-        return chatID;
-    }
+    private  String uuid;
+    public String firstName;
+    public String lastName;
+    public String phoneNumber;
+    public String email;
+    public GregorianCalendar createdAt;
 
     public String getFirstName() {
         return firstName;
@@ -21,12 +20,12 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhoneNumber() {
@@ -47,7 +46,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return firstName +" " + familyName +
+        return firstName +" " + lastName +
                 "\ttel: " + phoneNumber +
                 "\te-mail: " + email;
     }
