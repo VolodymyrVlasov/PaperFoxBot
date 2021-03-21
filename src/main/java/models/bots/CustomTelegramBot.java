@@ -3,13 +3,16 @@ package models.bots;
 import constants.config.ConfigData;
 import contollers.MainMenu;
 import models.shop.ShoppingCart;
-import models.users.conditions.UserStates;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import models.users.TelegramUser;
+import models.customer.TelegramCustomer;
+import postgres.dao.CustomerDao;
+import postgres.dao.impl.CustomerDaoImpl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +20,8 @@ import java.util.Map;
 
 public class CustomTelegramBot extends TelegramLongPollingBot {
     private static CustomTelegramBot instance;
-    private final Map<Long, TelegramUser> users = new HashMap<>();
-
+    private final Map<Long, TelegramCustomer> users = new HashMap<>();
+    private CustomerDao customerDao = new CustomerDaoImpl();
 
     public static CustomTelegramBot getInstance() {
         if (instance == null) instance = new CustomTelegramBot();
@@ -34,8 +37,15 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             chatId = update.getCallbackQuery().getFrom().getId();
         }
         if (!users.containsKey(chatId)) {
-            TelegramUser user = new TelegramUser(chatId);
+            TelegramCustomer user = new TelegramCustomer(chatId);
             user.setPassportFields(update);
+
+            try {
+                customerDao.createTelegramCustomer(user);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
             users.put(chatId, user);
         }
         if (users.get(chatId).getShoppingCart() == null)

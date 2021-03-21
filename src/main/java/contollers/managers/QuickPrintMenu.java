@@ -2,17 +2,17 @@ package contollers.managers;
 
 import javassist.NotFoundException;
 import models.products.categories.digitalPrints.PlainPrint;
-import models.users.TelegramUser;
-import models.users.conditions.UserQueryStates;
-import models.users.conditions.UserStates;
+import models.customer.TelegramCustomer;
+import models.customer.conditions.UserQueryStates;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import services.mailServices.FileLoader;
 
-import static models.users.conditions.UserQueryStates.*;
+import static models.customer.conditions.UserQueryStates.*;
 
 public class QuickPrintMenu extends AbstractMenu {
 
-    public QuickPrintMenu(TelegramUser user, Update update) throws NotFoundException {
+    public QuickPrintMenu(TelegramCustomer user, Update update) throws NotFoundException {
         super(user, update);
     }
 

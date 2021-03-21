@@ -1,7 +1,7 @@
 package models.shop;
 
 import models.products.PrintingProduct;
-import models.users.Customer;
+import models.customer.Customer;
 
 import java.util.ArrayList;
 import java.util.List;

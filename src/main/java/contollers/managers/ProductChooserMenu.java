@@ -1,14 +1,14 @@
 package contollers.managers;
 
-import models.users.TelegramUser;
-import models.users.conditions.UserStates;
+import models.customer.TelegramCustomer;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static models.users.conditions.UserQueryStates.*;
+import static models.customer.conditions.UserQueryStates.*;
 
 public class ProductChooserMenu extends AbstractMenu {
 
-    public ProductChooserMenu(TelegramUser user, Update update) {
+    public ProductChooserMenu(TelegramCustomer user, Update update) {
         super(user, update);
     }
 

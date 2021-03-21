@@ -3,18 +3,18 @@ package contollers;
 import contollers.managers.ProductChooserMenu;
 import contollers.managers.QuickPrintMenu;
 import javassist.NotFoundException;
-import models.users.TelegramUser;
-import models.users.conditions.UserStates;
+import models.customer.TelegramCustomer;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static constants.messages.ua_UA.TelegramMessages.RUN_BOT;
-import static models.users.conditions.UserQueryStates.*;
+import static models.customer.conditions.UserQueryStates.*;
 
 public class MainMenu {
     private Update update;
-    private TelegramUser user;
+    private TelegramCustomer user;
 
-    public MainMenu(TelegramUser user, Update update) {
+    public MainMenu(TelegramCustomer user, Update update) {
         this.update = update;
         this.user = user;
         handleUpdateEvent();

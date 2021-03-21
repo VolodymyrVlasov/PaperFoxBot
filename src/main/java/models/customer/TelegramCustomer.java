@@ -1,34 +1,34 @@
-package models.users;
+package models.customer;
 
 import models.shop.ShoppingCart;
-import models.users.conditions.UserStates;
+import models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.GregorianCalendar;
 
-public class TelegramUser extends Customer {
+public class TelegramCustomer extends Customer {
     private final long chatID;
-    private String firstName;
-    private String familyName;
-    private String phoneNumber;
-    private String email;
+//    private String firstName;
+//    private String familyName;
+//    private String phoneNumber;
+//    private String email;
     private UserStates state;
-    private GregorianCalendar lastAction;
     private ShoppingCart shoppingCart;
     private boolean keyboardSend = false;
 
 
-    public TelegramUser(long chatID) {
+
+    public TelegramCustomer(long chatID) {
         this.chatID = chatID;
         this.state = UserStates.USER_CONNECTED;
-        this.lastAction = new GregorianCalendar();
+        this.createdAt = new GregorianCalendar();
     }
 
     public void setPassportFields(Update update) {
         if (update.hasMessage()) {
             this.firstName = update.getMessage().getChat().getFirstName();
-            this.familyName = update.getMessage().getChat().getLastName();
-            System.out.println("31(TU) new Telegram User: " + this.firstName + " " + this.familyName);
+            this.lastName = update.getMessage().getChat().getLastName();
+            System.out.println("31(TU) new Telegram User: " + this.firstName + " " + this.lastName);
         }
     }
 
@@ -36,7 +36,7 @@ public class TelegramUser extends Customer {
         Customer customer = new Customer();
         if (email != null) customer.setEmail(email);
         if (phoneNumber != null) customer.setPhoneNumber(phoneNumber);
-        customer.setFamilyName(familyName);
+        customer.setLastName(lastName);
         customer.setFirstName(firstName);
         return customer;
     }
@@ -57,8 +57,8 @@ public class TelegramUser extends Customer {
         this.firstName = firstName;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -71,7 +71,7 @@ public class TelegramUser extends Customer {
 
     public void setState(UserStates   state) {
         this.state = state;
-        this.lastAction = new GregorianCalendar();
+        this.createdAt = new GregorianCalendar();
     }
 
     public UserStates getState() {
@@ -86,8 +86,8 @@ public class TelegramUser extends Customer {
         return firstName;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPhoneNumber() {
@@ -99,11 +99,11 @@ public class TelegramUser extends Customer {
     }
 
     public GregorianCalendar getLastAction() {
-        return lastAction;
+        return createdAt;
     }
 
     public void setLastAction(GregorianCalendar lastAction) {
-        this.lastAction = lastAction;
+        this.createdAt = lastAction;
     }
 
     public boolean isKeyboardSend() {
@@ -119,7 +119,7 @@ public class TelegramUser extends Customer {
         return "ChatUser{\n" +
                 "   chatID=" + chatID + "'\n" +
                 "   firstName='" + firstName + "'\n" +
-                "   familyName='" + familyName + "'\n" +
+                "   familyName='" + lastName + "'\n" +
                 "   phoneNumber='" + phoneNumber + "'\n" +
                 "   email='" + email + "'\n" +
                 "   state=" + state + "'\n" +

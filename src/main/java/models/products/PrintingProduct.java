@@ -1,7 +1,7 @@
 package models.products;
 
 import models.material.Size;
-import models.users.conditions.UserQueryStates;
+import models.customer.conditions.UserQueryStates;
 
 import java.io.File;
 import java.util.ArrayList;
