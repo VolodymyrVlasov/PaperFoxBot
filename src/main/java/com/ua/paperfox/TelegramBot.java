@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.ApiContext;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -20,49 +18,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-//
-//@Component
-//public class TelegramBot extends TelegramLongPollingBot {
-//    Logger logger = LoggerFactory.getLogger(TelegramBot.class);
-//
-//    static {
-//        ApiContextInitializer.init();
-//    }
-//
-//    @PostConstruct
-//    public void registerBot() {
-//        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-//        try {
-//            telegramBotsApi.registerBot(this);
-//        } catch (TelegramApiException e) {
-//            logger.error(e.getMessage());
-//        }
-//    }
-//    @Override
-//    public void onUpdateReceived(Update update) {
-//        if (update.getMessage() != null && update.getMessage().hasText()) {
-//            long chatId = update.getMessage().getChatId();
-//
-//            try {
-//                execute(new SendMessage(chatId, "Hello"));
-//                logger.debug("Chat id is: " + chatId);
-//            } catch (TelegramApiException e) {
-//                logger.error("Error: " + e.getMessage());
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public String getBotUsername() {
-//        return "test_paper_fox_bot";
-//    }
-//
-//    @Override
-//    public String getBotToken() {
-//        return "1708930091:AAFnuvy2bKSFJE0DeXHz-GSdeIUzTK3uETY";
-//    }
-//}
-
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
@@ -75,42 +30,10 @@ public class TelegramBot extends TelegramLongPollingBot {
         ApiContextInitializer.init();
     }
 
-    public TelegramBot() throws TelegramApiException {
-//        super(ApiContext.getInstance(DefaultBotOptions.class), false);
+    public TelegramBot() {
         this.botToken = "1708930091:AAFnuvy2bKSFJE0DeXHz-GSdeIUzTK3uETY";
         this.botUsername = "test_paper_fox_bot";
-
-
-//        register(connectAccountCommand);
     }
-
-//    @Override
-//    public void onUpdatesReceived(List<Update> updates) {
-//        if (update.getMessage() != null && update.getMessage().hasText()) {
-//            long chatId = update.getMessage().getChatId();
-//
-//            try {
-//                execute(new SendMessage(chatId, "Hello"));
-//                logger.debug("Chat id is: " + chatId);
-//            } catch (TelegramApiException e) {
-//                logger.error("Error: " + e.getMessage());
-//            }
-//        }
-//    }
-
-    //    @Override
-//    public void onUpdateReceived(Update update) {
-//        if (update.getMessage() != null && update.getMessage().hasText()) {
-//            long chatId = update.getMessage().getChatId();
-//
-//            try {
-//                execute(new SendMessage(chatId, "Hello"));
-//                logger.debug("Chat id is: " + chatId);
-//            } catch (TelegramApiException e) {
-//                logger.error("Error: " + e.getMessage());
-//            }
-//        }
-//    }
 
     @PostConstruct
     public void addBot() throws TelegramApiRequestException {
@@ -136,18 +59,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     public String getBotUsername() {
         return botUsername;
     }
-
-//    @Override
-//    public void processNonCommandUpdate(Update update) {
-//        Message msg = update.getMessage();
-//        Long chatId = msg.getChatId();
-////
-//        logger.debug("Chat id is: " + chatId);
-////        String userName = getUserName(msg);
-////
-////        String answer = nonCommand.nonCommandExecute(chatId, userName, msg.getText());
-////        setAnswer(chatId, userName, answer);
-//    }
 
     @Override
     public String getBotToken() {
