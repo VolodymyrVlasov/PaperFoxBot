@@ -8,77 +8,32 @@ import com.ua.paperfox.models.customer.conditions.UserStates;
 import com.ua.paperfox.models.shop.ShoppingCart;
 import com.ua.paperfox.postgres.dao.CustomerDao;
 import com.ua.paperfox.postgres.dao.impl.CustomerDaoImpl;
+import com.ua.paperfox.services.mailServices.EmailTemplator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-public class PaperfoxApplication extends TelegramLongPollingBot {
+public class PaperfoxApplication  {
 	private static CustomTelegramBot instance;
 	private final Map<Long, TelegramCustomer> users = new HashMap<>();
 	private CustomerDao customerDao = new CustomerDaoImpl();
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaperfoxApplication.class, args);
-	}
+		ApiContextInitializer.init();
+		TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
-	public static CustomTelegramBot getInstance() {
-		if (instance == null) instance = new CustomTelegramBot();
-		return instance;
-	}
-
-	@Override
-	public void onUpdateReceived(Update update) {
-		long chatId = 0;
-		if (update.hasMessage() && update.getMessage() != null) {
-			chatId = update.getMessage().getChatId();
-		} else if (update.hasCallbackQuery() && update.getCallbackQuery() != null) {
-			chatId = update.getCallbackQuery().getFrom().getId();
-		}
-		if (!users.containsKey(chatId)) {
-			TelegramCustomer user = new TelegramCustomer(chatId);
-			user.setPassportFields(update);
-
-//			try {
-//				customerDao.createTelegramCustomer(user);
-//			} catch (SQLException throwables) {
-//				throwables.printStackTrace();
-//			}
-
-			users.put(chatId, user);
-		}
-		if (users.get(chatId).getShoppingCart() == null)
-			users.get(chatId).setShoppingCart(new ShoppingCart(users.get(chatId).getCustomer()));
-		new MainMenu(users.get(chatId), update);
-	}
-
-	public synchronized void sendMessage(SendMessage sendMessage) {
 		try {
-			execute(sendMessage);
-		} catch (TelegramApiException e) {
+			telegramBotsApi.registerBot(CustomTelegramBot.getInstance());
+		} catch (TelegramApiRequestException e) {
 			e.printStackTrace();
 		}
-	}
 
-	@Override
-	public String getBotUsername() {
-		return ConfigData.TLGM_USER_NAME;
+		SpringApplication.run(PaperfoxApplication.class, args);
 	}
-
-	@Override
-	public String getBotToken() {
-		return ConfigData.TLGM_TOKEN;
-	}
-
-	public void setUserState(long userId, UserStates state) {
-		users.get(userId).setState(state);
-	}
-
 }

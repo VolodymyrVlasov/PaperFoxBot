@@ -38,9 +38,6 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         if (!users.containsKey(chatId)) {
             TelegramCustomer user = new TelegramCustomer(chatId);
             user.setPassportFields(update);
-
-
-
             users.put(chatId, user);
         }
         if (users.get(chatId).getShoppingCart() == null)
