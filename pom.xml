@@ -42,10 +42,23 @@
 			<artifactId>telegrambots</artifactId>
 			<version>4.8.1</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.telegram</groupId>
-			<artifactId>telegrambotsextensions</artifactId>
-			<version>4.8.1</version>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>failureaccess</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 
