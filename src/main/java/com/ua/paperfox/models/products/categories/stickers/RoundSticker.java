@@ -1,8 +1,8 @@
-package com.paperfox.ua.models.products.categories.stickers;
+package com.ua.paperfox.models.products.categories.stickers;
 
 
-import com.paperfox.ua.models.products.PrintingProduct;
-import com.paperfox.ua.models.customer.conditions.UserQueryStates;
+import com.ua.paperfox.models.products.PrintingProduct;
+import com.ua.paperfox.models.customer.conditions.UserQueryStates;
 
 public class RoundSticker extends PrintingProduct {
     public RoundSticker(UserQueryStates productType) {

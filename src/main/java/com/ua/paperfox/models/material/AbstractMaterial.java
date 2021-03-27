@@ -1,4 +1,4 @@
-package com.paperfox.ua.models.material;
+package com.ua.paperfox.models.material;
 
 
 public abstract class AbstractMaterial {

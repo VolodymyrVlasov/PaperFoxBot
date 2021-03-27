@@ -1,7 +1,7 @@
-package com.paperfox.ua.models.products;
+package com.ua.paperfox.models.products;
 
-import com.paperfox.ua.models.material.Size;
-import com.paperfox.ua.models.customer.conditions.UserQueryStates;
+import com.ua.paperfox.models.material.Size;
+import com.ua.paperfox.models.customer.conditions.UserQueryStates;
 
 import java.io.File;
 import java.util.ArrayList;

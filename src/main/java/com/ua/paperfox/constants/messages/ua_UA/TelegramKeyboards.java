@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.messages.ua_UA;
+package com.ua.paperfox.constants.messages.ua_UA;
 
 import com.paperfox.ua.models.customer.conditions.UserQueryStates;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

@@ -1,10 +1,10 @@
-package com.paperfox.ua.contollers;
+package com.ua.paperfox.contollers;
 
-import com.paperfox.ua.constants.messages.ua_UA.TelegramKeyboards;
-import com.paperfox.ua.constants.messages.ua_UA.TelegramMessages;
-import com.paperfox.ua.models.bots.CustomTelegramBot;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.constants.messages.ua_UA.TelegramKeyboards;
+import com.ua.paperfox.constants.messages.ua_UA.TelegramMessages;
+import com.ua.paperfox.models.bots.CustomTelegramBot;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 

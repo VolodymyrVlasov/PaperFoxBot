@@ -1,4 +1,4 @@
-package com.paperfox.ua.models.products.categories.stickers;
+package com.ua.paperfox.models.products.categories.stickers;
 
 
 public class SquaredSticker {

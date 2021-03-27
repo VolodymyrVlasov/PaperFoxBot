@@ -1,14 +1,14 @@
-package com.paperfox.ua.contollers.managers;
+package com.ua.paperfox.contollers.managers;
 
 import javassist.NotFoundException;
-import com.paperfox.ua.models.products.categories.digitalPrints.PlainPrint;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.models.customer.conditions.UserQueryStates;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.models.products.categories.digitalPrints.PlainPrint;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.models.customer.conditions.UserQueryStates;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import com.paperfox.ua.services.mailServices.FileLoader;
+import com.ua.paperfox.services.mailServices.FileLoader;
 
-import static com.paperfox.ua.models.customer.conditions.UserQueryStates.*;
+import static com.ua.paperfox.models.customer.conditions.UserQueryStates.*;
 
 public class QuickPrintMenu extends AbstractMenu {
 

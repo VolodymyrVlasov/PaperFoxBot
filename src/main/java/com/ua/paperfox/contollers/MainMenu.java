@@ -1,14 +1,14 @@
-package com.paperfox.ua.contollers;
+package com.ua.paperfox.contollers;
 
-import com.paperfox.ua.contollers.managers.ProductChooserMenu;
-import com.paperfox.ua.contollers.managers.QuickPrintMenu;
+import com.ua.paperfox.contollers.managers.ProductChooserMenu;
+import com.ua.paperfox.contollers.managers.QuickPrintMenu;
 import javassist.NotFoundException;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static com.paperfox.ua.constants.messages.ua_UA.TelegramMessages.RUN_BOT;
-import static com.paperfox.ua.models.customer.conditions.UserQueryStates.*;
+import static com.ua.paperfox.constants.messages.ua_UA.TelegramMessages.RUN_BOT;
+import static com.ua.paperfox.models.customer.conditions.UserQueryStates.*;
 
 public class MainMenu {
     private Update update;

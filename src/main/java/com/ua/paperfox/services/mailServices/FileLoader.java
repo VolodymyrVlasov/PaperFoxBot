@@ -1,6 +1,6 @@
-package com.paperfox.ua.services.mailServices;
+package com.ua.paperfox.services.mailServices;
 
-import com.paperfox.ua.models.shop.ShoppingCart;
+import com.ua.paperfox.models.shop.ShoppingCart;
 import org.json.JSONObject;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -12,7 +12,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import static com.paperfox.ua.constants.config.ConfigData.*;
+import static com.ua.paperfox.constants.config.ConfigData.*;
 
 public class FileLoader {
     private File localFilePath;

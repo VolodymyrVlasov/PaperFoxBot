@@ -1,4 +1,4 @@
-package com.paperfox.ua.services.deliveries;
+package com.ua.paperfox.services.deliveries;
 
 public enum DeliveryMethod {
     NOVA_POSHTA,

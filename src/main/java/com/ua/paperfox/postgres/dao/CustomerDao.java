@@ -1,7 +1,7 @@
-package com.paperfox.ua.postgres.dao;
+package com.ua.paperfox.postgres.dao;
 
-import com.paperfox.ua.models.customer.Customer;
-import com.paperfox.ua.models.customer.TelegramCustomer;
+import com.ua.paperfox.models.customer.Customer;
+import com.ua.paperfox.models.customer.TelegramCustomer;
 
 import java.sql.SQLException;
 

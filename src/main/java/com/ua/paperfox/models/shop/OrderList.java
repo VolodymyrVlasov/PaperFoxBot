@@ -1,4 +1,4 @@
-package com.paperfox.ua.models.shop;
+package com.ua.paperfox.models.shop;
 
 import java.util.ArrayList;
 import java.util.List;

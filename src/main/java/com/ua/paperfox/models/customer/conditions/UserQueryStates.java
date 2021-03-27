@@ -1,4 +1,4 @@
-package com.paperfox.ua.models.customer.conditions;
+package com.ua.paperfox.models.customer.conditions;
 
 public enum UserQueryStates {
     //Start message buttons

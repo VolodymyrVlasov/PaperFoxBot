@@ -1,7 +1,7 @@
-package com.paperfox.ua.models.customer;
+package com.ua.paperfox.models.customer;
 
-import com.paperfox.ua.models.shop.ShoppingCart;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.models.shop.ShoppingCart;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.GregorianCalendar;

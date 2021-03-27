@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.config;
+package com.ua.paperfox.constants.config;
 
 public class ConfigData {
     //Telegram auth const

@@ -1,4 +1,4 @@
-package com.paperfox.ua.services.payments;
+package com.ua.paperfox.services.payments;
 
 /*
 https://github.com/liqpay/sdk-java/

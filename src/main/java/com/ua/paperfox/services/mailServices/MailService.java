@@ -1,9 +1,9 @@
-package com.paperfox.ua.services.mailServices;
+package com.ua.paperfox.services.mailServices;
 
-import com.paperfox.ua.constants.config.ConfigData;
-import com.paperfox.ua.constants.messages.ua_UA.MailMessages;
+import com.ua.paperfox.constants.config.ConfigData;
+import com.ua.paperfox.constants.messages.ua_UA.MailMessages;
 import freemarker.template.TemplateException;
-import com.paperfox.ua.models.shop.Order;
+import com.ua.paperfox.models.shop.Order;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

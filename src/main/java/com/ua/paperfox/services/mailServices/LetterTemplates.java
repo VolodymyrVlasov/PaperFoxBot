@@ -1,4 +1,4 @@
-package com.paperfox.ua.services.mailServices;
+package com.ua.paperfox.services.mailServices;
 
 public class LetterTemplates {
     public static final String MAIL_NEW_ODRER = "<!DOCTYPE html>\n" +

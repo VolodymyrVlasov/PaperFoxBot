@@ -1,4 +1,4 @@
-package com.paperfox.ua.postgres.dao;
+package com.ua.paperfox.postgres.dao;
 
 public interface OrderDao {
 

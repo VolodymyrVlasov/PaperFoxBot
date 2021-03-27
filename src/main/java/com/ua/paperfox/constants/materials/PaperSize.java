@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.materials;
+package com.ua.paperfox.constants.materials;
 
 public class PaperSize {
     public static final String A6 = "A6";

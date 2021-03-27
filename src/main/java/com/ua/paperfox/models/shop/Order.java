@@ -1,8 +1,8 @@
-package com.paperfox.ua.models.shop;
+package com.ua.paperfox.models.shop;
 
-import com.paperfox.ua.services.deliveries.DeliveryMethod;
-import com.paperfox.ua.services.mailServices.MailService;
-import com.paperfox.ua.services.mailServices.MailStates;
+import com.ua.paperfox.services.deliveries.DeliveryMethod;
+import com.ua.paperfox.services.mailServices.MailService;
+import com.ua.paperfox.services.mailServices.MailStates;
 
 import java.util.GregorianCalendar;
 

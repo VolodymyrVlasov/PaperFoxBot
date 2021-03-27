@@ -1,4 +1,4 @@
-package com.paperfox.ua.models.customer;
+package com.ua.paperfox.models.customer;
 
 import java.util.GregorianCalendar;
 

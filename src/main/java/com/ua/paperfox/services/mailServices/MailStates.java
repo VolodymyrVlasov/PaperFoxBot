@@ -1,4 +1,4 @@
-package com.paperfox.ua.services.mailServices;
+package com.ua.paperfox.services.mailServices;
 
 public enum MailStates {
     OK,

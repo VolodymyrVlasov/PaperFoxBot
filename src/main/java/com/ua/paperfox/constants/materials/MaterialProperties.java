@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.materials;
+package com.ua.paperfox.constants.materials;
 
 public class MaterialProperties {
     public static final int RITRAMA_X = 400;

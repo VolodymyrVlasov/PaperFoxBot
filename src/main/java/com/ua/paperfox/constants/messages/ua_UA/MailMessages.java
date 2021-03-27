@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.messages.ua_UA;
+package com.ua.paperfox.constants.messages.ua_UA;
 
 public class MailMessages {
     public static final String MAIL_SUBJECT_NEW_ORDER = "Нове замовлення через Бота";

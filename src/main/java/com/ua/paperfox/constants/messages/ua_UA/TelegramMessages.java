@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.messages.ua_UA;
+package com.ua.paperfox.constants.messages.ua_UA;
 
 public class TelegramMessages {
     public static final String RUN_BOT = "/start";

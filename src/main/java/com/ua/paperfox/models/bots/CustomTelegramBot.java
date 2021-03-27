@@ -1,16 +1,15 @@
-package com.paperfox.ua.models.bots;
+package com.ua.paperfox.models.bots;
 
-import com.paperfox.ua.constants.config.ConfigData;
-import com.paperfox.ua.contollers.MainMenu;
-import com.paperfox.ua.models.shop.ShoppingCart;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.constants.config.ConfigData;
+import com.ua.paperfox.contollers.MainMenu;
+import com.ua.paperfox.models.shop.ShoppingCart;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.postgres.dao.CustomerDao;
-import com.paperfox.ua.postgres.dao.impl.CustomerDaoImpl;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.postgres.dao.CustomerDao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ import java.util.Map;
 public class CustomTelegramBot extends TelegramLongPollingBot {
     private static CustomTelegramBot instance;
     private final Map<Long, TelegramCustomer> users = new HashMap<>();
-    private CustomerDao customerDao = new CustomerDaoImpl();
+
 
     public static CustomTelegramBot getInstance() {
         if (instance == null) instance = new CustomTelegramBot();
@@ -40,11 +39,7 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
             TelegramCustomer user = new TelegramCustomer(chatId);
             user.setPassportFields(update);
 
-            try {
-                customerDao.createTelegramCustomer(user);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+
 
             users.put(chatId, user);
         }

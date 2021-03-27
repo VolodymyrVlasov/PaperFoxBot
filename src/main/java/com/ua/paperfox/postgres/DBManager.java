@@ -1,6 +1,6 @@
-package com.paperfox.ua.postgres;
+package com.ua.paperfox.postgres;
 
-import com.paperfox.ua.constants.config.ConfigData;
+import com.ua.paperfox.constants.config.ConfigData;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

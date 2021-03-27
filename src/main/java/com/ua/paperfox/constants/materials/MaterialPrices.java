@@ -1,4 +1,4 @@
-package com.paperfox.ua.constants.materials;
+package com.ua.paperfox.constants.materials;
 
 public class MaterialPrices {
 }

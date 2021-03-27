@@ -1,13 +1,13 @@
-package com.paperfox.ua.contollers.managers;
+package com.ua.paperfox.contollers.managers;
 
-import com.paperfox.ua.contollers.TelegramMessageFactory;
-import com.paperfox.ua.models.bots.CustomTelegramBot;
-import com.paperfox.ua.models.shop.Order;
-import com.paperfox.ua.models.shop.ShoppingCart;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.models.customer.conditions.UserStates;
+import com.ua.paperfox.contollers.TelegramMessageFactory;
+import com.ua.paperfox.models.bots.CustomTelegramBot;
+import com.ua.paperfox.models.shop.Order;
+import com.ua.paperfox.models.shop.ShoppingCart;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import com.paperfox.ua.services.mailServices.MailStates;
+import com.ua.paperfox.services.mailServices.MailStates;
 
 public abstract class AbstractMenu {
 

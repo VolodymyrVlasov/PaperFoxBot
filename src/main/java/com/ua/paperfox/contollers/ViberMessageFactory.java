@@ -1,4 +1,4 @@
-package com.paperfox.ua.contollers;
+package com.ua.paperfox.contollers;
 
 public class ViberMessageFactory {
 }
