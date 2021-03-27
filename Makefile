@@ -1,3 +1,3 @@
 build:
-	docker build -t ppbot:v0.2 .
-	docker run -p 8081:8080 ppbot:v0.2
+	docker build -t ppbot:v1.2-stable .
+	docker run -p 8080:8080 ppbot:v1.2-stable --env-file local.env

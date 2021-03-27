@@ -1,7 +1,7 @@
 package com.ua.paperfox.contollers.managers;
 
+import com.ua.paperfox.TelegramBot;
 import com.ua.paperfox.contollers.TelegramMessageFactory;
-import com.ua.paperfox.models.bots.CustomTelegramBot;
 import com.ua.paperfox.models.shop.Order;
 import com.ua.paperfox.models.shop.ShoppingCart;
 import com.ua.paperfox.models.customer.TelegramCustomer;
@@ -52,7 +52,7 @@ public abstract class AbstractMenu {
             if (user.isKeyboardSend()) user.setKeyboardSend(false);
             handleUpdateEvent();
             user.clearShoppingCart();
-            CustomTelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
+            TelegramBot.getInstance().setUserState(user.getChatID(), UserStates.USER_CONNECTED);
         } else {
             setReply(UserStates.ERROR);
             makeOrder();

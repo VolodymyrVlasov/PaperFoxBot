@@ -1,8 +1,8 @@
 package com.ua.paperfox.contollers;
 
+import com.ua.paperfox.TelegramBot;
 import com.ua.paperfox.constants.messages.ua_UA.TelegramKeyboards;
 import com.ua.paperfox.constants.messages.ua_UA.TelegramMessages;
-import com.ua.paperfox.models.bots.CustomTelegramBot;
 import com.ua.paperfox.models.customer.TelegramCustomer;
 import com.ua.paperfox.models.customer.conditions.UserStates;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -57,7 +57,7 @@ public class TelegramMessageFactory {
             }
             case INVALID_FILE -> message.setText(TelegramMessages.ADD_FILE);
         }
-        CustomTelegramBot.getInstance().sendMessage(message);
+        TelegramBot.getInstance().sendMessage(message);
     }
 
     public long getChatID(Update update) {

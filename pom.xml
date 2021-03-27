@@ -55,11 +55,11 @@
 			<version>2.3.23</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>failureaccess</artifactId>
-			<version>1.0.1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.google.guava</groupId>-->
+<!--			<artifactId>failureaccess</artifactId>-->
+<!--			<version>1.0.1</version>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -85,6 +85,19 @@
 					<target>14</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+			<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<source>14</source>-->
+<!--					<target>14</target>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
