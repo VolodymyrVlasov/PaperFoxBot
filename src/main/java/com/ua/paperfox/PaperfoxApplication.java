@@ -11,12 +11,7 @@ import com.ua.paperfox.postgres.dao.impl.CustomerDaoImpl;
 import com.ua.paperfox.services.mailServices.EmailTemplator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootApplication
 public class PaperfoxApplication  {
