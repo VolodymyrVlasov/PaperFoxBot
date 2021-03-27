@@ -1,9 +1,9 @@
-package com.paperfox.ua.postgres.dao.impl;
+package com.ua.paperfox.postgres.dao.impl;
 
-import com.paperfox.ua.models.customer.Customer;
-import com.paperfox.ua.models.customer.TelegramCustomer;
-import com.paperfox.ua.postgres.DBManager;
-import com.paperfox.ua.postgres.dao.CustomerDao;
+import com.ua.paperfox.models.customer.Customer;
+import com.ua.paperfox.models.customer.TelegramCustomer;
+import com.ua.paperfox.postgres.DBManager;
+import com.ua.paperfox.postgres.dao.CustomerDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
