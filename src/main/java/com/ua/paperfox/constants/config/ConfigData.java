@@ -12,7 +12,7 @@ public class ConfigData {
     public static final String MAIL_USER = System.getenv("MAIL_USER");
     public static final String MAIL_PASSWORD = System.getenv("MAIL_PASSWORD");
     //Path settings
-    public static final String ROOT_PATH = "src/main/java/data/temp/";
+    public static final String ROOT_PATH = "src/main/java/com/ua/paperfox/data/temp/";
 
     //DataBase
     public static final String DB_HOST = System.getenv("DB_HOST");
