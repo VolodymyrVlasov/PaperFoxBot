@@ -1,34 +1,59 @@
-package com.ua.paperfox.models.bots;
+package com.ua.paperfox;
 
 import com.ua.paperfox.constants.config.ConfigData;
 import com.ua.paperfox.contollers.MainMenu;
-import com.ua.paperfox.models.shop.ShoppingCart;
+import com.ua.paperfox.models.customer.TelegramCustomer;
 import com.ua.paperfox.models.customer.conditions.UserStates;
+import com.ua.paperfox.models.shop.ShoppingCart;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import com.ua.paperfox.models.customer.TelegramCustomer;
-import com.ua.paperfox.postgres.dao.CustomerDao;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.sql.SQLException;
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
-//https://github.com/SergioViacheslaev/MyWizardTelegramBot
-
-public class CustomTelegramBot extends TelegramLongPollingBot {
-    private static CustomTelegramBot instance;
+@Component
+public class TelegramBot extends TelegramLongPollingBot {
+    private static TelegramBot instance;
     private final Map<Long, TelegramCustomer> users = new HashMap<>();
 
 
-    public static CustomTelegramBot getInstance() {
-        if (instance == null) instance = new CustomTelegramBot();
+    public static TelegramBot getInstance() {
+        if (instance == null) instance = new TelegramBot();
         return instance;
+    }
+
+    Logger logger = LoggerFactory.getLogger(TelegramBot.class);
+
+//    private String botUsername;
+//    private String botToken;
+
+    static {
+        ApiContextInitializer.init();
+    }
+
+//    private TelegramBot() {
+//        this.botToken = "1708930091:AAFnuvy2bKSFJE0DeXHz-GSdeIUzTK3uETY";
+//        this.botUsername = "test_paper_fox_bot";
+//    }
+
+    @PostConstruct
+    public void addBot() throws TelegramApiRequestException {
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+        botsApi.registerBot(this);
     }
 
     @Override
     public void onUpdateReceived(Update update) {
+        logger.info("hello");
         long chatId = 0;
         if (update.hasMessage() && update.getMessage() != null) {
             chatId = update.getMessage().getChatId();
@@ -67,4 +92,3 @@ public class CustomTelegramBot extends TelegramLongPollingBot {
         users.get(userId).setState(state);
     }
 }
-
